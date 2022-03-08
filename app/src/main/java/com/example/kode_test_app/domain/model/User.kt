@@ -16,5 +16,5 @@ data class User(
 )
 
 data class UserResponse(
-    val userResponse: List<User>
+    val items: List<User>
 )

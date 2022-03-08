@@ -1,5 +1,6 @@
 package com.example.kode_test_app.data.repository
 
+import android.util.Log
 import com.example.kode_test_app.data.local.UserDao
 import com.example.kode_test_app.data.remote.UserApi
 import com.example.kode_test_app.domain.model.User
@@ -19,11 +20,12 @@ class UserRepositoryImpl(
             dao.getUsers()
         },
         fetch = {
-            api.getUsers().userResponse
+            api.getUsers().items
         },
         saveFetchResult = { users ->
             dao.deleteUsers()
             dao.insertUsers(users = users)
         }
     )
+
 }
