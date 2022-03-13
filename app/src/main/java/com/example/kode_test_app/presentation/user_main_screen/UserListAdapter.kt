@@ -1,4 +1,4 @@
-package com.example.kode_test_app.presentation.user_list
+package com.example.kode_test_app.presentation.user_main_screen
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,20 +8,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.kode_test_app.databinding.AdapterListItemBinding
 import com.example.kode_test_app.domain.model.User
 
-class UserListAdapter : ListAdapter<User, UserListAdapter.UserListViewHolder>(DiffCallback) {
+class UserListAdapter(
+) : ListAdapter<User, UserListAdapter.UserListViewHolder>(DiffCallback) {
 
-    class UserListViewHolder(private val binding: AdapterListItemBinding) :
+    class UserListViewHolder(
+        private val binding: AdapterListItemBinding,
+        ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(user: User) {
             binding.tvUserName.text = user.firstName
+            binding.tvDepartment.text = user.department
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserListViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return UserListViewHolder(
-            AdapterListItemBinding.inflate(layoutInflater, parent, false)
+            AdapterListItemBinding.inflate(layoutInflater, parent, false),
         )
     }
 

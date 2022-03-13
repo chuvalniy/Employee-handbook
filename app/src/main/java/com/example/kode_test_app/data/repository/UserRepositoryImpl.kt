@@ -1,31 +1,26 @@
 package com.example.kode_test_app.data.repository
 
-import android.util.Log
 import com.example.kode_test_app.data.local.UserDao
 import com.example.kode_test_app.data.remote.UserApi
 import com.example.kode_test_app.domain.model.User
 import com.example.kode_test_app.domain.repository.UserRepository
-import com.example.kode_test_app.utils.Resource
-import com.example.kode_test_app.utils.networkBoundResource
+import com.example.kode_test_app.utils.SortType
 import kotlinx.coroutines.flow.Flow
 
 
 class UserRepositoryImpl(
     private val dao: UserDao,
     private val api: UserApi
-): UserRepository {
+) : UserRepository {
 
-    override fun getUsers(): Flow<Resource<List<User>>> = networkBoundResource(
-        query = {
-            dao.getUsers()
-        },
-        fetch = {
-            api.getUsers().items
-        },
-        saveFetchResult = { users ->
-            dao.deleteUsers()
-            dao.insertUsers(users = users)
-        }
-    )
+    override fun getUsers(department: String, sortType: SortType, searchQuery: String): Flow<List<User>> {
+        return dao.getUsers(department, sortType, searchQuery)
+    }
+
+    override suspend fun refreshData() {
+        val remoteData = api.getUsers().items
+        dao.deleteUsers()
+        dao.insertUsers(remoteData)
+    }
 
 }
