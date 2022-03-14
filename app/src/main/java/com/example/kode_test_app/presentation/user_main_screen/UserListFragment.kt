@@ -5,16 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import com.example.kode_test_app.BaseFragment
+import androidx.navigation.fragment.findNavController
+import com.example.kode_test_app.core.BaseFragment
 import com.example.kode_test_app.databinding.FragmentUserListBinding
+import com.example.kode_test_app.presentation.user_list.MainScreenFragmentDirections
 import com.example.kode_test_app.presentation.user_list.MainScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class UserListFragment : BaseFragment<FragmentUserListBinding>() {
 
-    // In UserListFragment viewModel is used to observe data and set filter type.
     private val viewModel: MainScreenViewModel by activityViewModels()
 
     private lateinit var adapter: UserListAdapter
@@ -22,7 +22,14 @@ class UserListFragment : BaseFragment<FragmentUserListBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = UserListAdapter()
+
+        adapter = UserListAdapter(
+            onMoveToDetail = { user ->
+                val action = MainScreenFragmentDirections
+                    .actionUserListToUserDetail(user.id)
+                findNavController().navigate(action)
+            }
+        )
 
         viewModel.data.observe(viewLifecycleOwner) { users ->
             users?.let {

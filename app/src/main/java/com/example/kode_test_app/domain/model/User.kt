@@ -12,7 +12,8 @@ data class User(
     @PrimaryKey val id: String,
     val lastName: String,
     val position: String,
-    val userTag: String
+    val userTag: String,
+    val phone: String
 )
 
 data class UserResponse(

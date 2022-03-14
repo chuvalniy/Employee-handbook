@@ -1,4 +1,4 @@
-package com.example.kode_test_app.utils
+package com.example.kode_test_app.core.utils
 
 import android.widget.SearchView
 

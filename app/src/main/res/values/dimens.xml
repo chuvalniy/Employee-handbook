@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="list_image_size">72dp</dimen>
+    <dimen name="spacing_line_height">0.33dp</dimen>
+    <dimen name="layout_margin">16dp</dimen>
+    <dimen name="search_frame_bottom_margin">12dp</dimen>
+    <dimen name="tab_layout_start_padding">16dp</dimen>
+    <dimen name="line_bottom_margin">9dp</dimen>
 </resources>

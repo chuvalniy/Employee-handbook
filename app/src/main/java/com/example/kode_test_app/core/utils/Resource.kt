@@ -1,4 +1,4 @@
-package com.example.kode_test_app.utils
+package com.example.kode_test_app.core.utils
 
 sealed class Resource<T>(val data: T? = null, val error: String? = null) {
     class Loading<T>(data: T? = null) : Resource<T>(data)
