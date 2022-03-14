@@ -7,7 +7,7 @@ import com.example.kode_test_app.domain.model.User
 @Entity(tableName = "user_db")
 data class UserEntity(
     val avatarUrl: String,
-    val birthday: String,
+    val timestamp: Long,
     val department: String,
     val firstName: String,
     @PrimaryKey val id: String,
@@ -19,7 +19,7 @@ data class UserEntity(
     fun toUser(): User {
         return User(
             avatarUrl = avatarUrl,
-            birthday = birthday,
+            timestamp = timestamp,
             department = department,
             name = "$firstName $lastName",
             id = id,

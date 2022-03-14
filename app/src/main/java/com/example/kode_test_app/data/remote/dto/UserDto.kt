@@ -1,5 +1,6 @@
 package com.example.kode_test_app.data.remote.dto
 
+import com.example.kode_test_app.core.utils.convertFromDateIntoTimestamp
 import com.example.kode_test_app.data.local.entity.UserEntity
 
 
@@ -21,7 +22,7 @@ data class UserDto(
     fun toUserEntity(): UserEntity {
         return UserEntity(
             avatarUrl = avatarUrl,
-            birthday = birthday,
+            timestamp = convertFromDateIntoTimestamp(birthday),
             department = department,
             firstName = firstName,
             id = id,

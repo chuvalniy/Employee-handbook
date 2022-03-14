@@ -2,7 +2,7 @@ package com.example.kode_test_app.domain.model
 
 data class User(
     val avatarUrl: String,
-    val birthday: String,
+    val timestamp: Long,
     val department: String,
     val name: String,
     val id: String,

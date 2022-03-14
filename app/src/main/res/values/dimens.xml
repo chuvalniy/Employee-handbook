@@ -6,4 +6,6 @@
     <dimen name="search_frame_bottom_margin">12dp</dimen>
     <dimen name="tab_layout_start_padding">16dp</dimen>
     <dimen name="line_bottom_margin">9dp</dimen>
+    <dimen name="birthday_end_margin">19.5dp</dimen>
+    <dimen name="cancel_button_margin_end">28dp</dimen>
 </resources>

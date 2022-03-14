@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.example.kode_test_app.core.BaseFragment
@@ -33,6 +34,10 @@ class MainScreenFragment : BaseFragment<FragmentMainScreenBinding>() {
             }
             searchView.onQueryTextChanged { query ->
                 viewModel.queryText.value = query
+            }
+            searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
+                binding.iconSort.isVisible = !hasFocus
+                binding.btnCancel.isVisible = hasFocus
             }
         }
 

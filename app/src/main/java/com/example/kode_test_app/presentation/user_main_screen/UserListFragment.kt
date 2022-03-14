@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.kode_test_app.core.BaseFragment
+import com.example.kode_test_app.core.utils.SortType
 import com.example.kode_test_app.databinding.FragmentUserListBinding
 import com.example.kode_test_app.presentation.user_list.MainScreenFragmentDirections
 import com.example.kode_test_app.presentation.user_list.MainScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class UserListFragment : BaseFragment<FragmentUserListBinding>() {
