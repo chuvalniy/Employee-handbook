@@ -17,12 +17,5 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <ImageView
-        android:id="@+id/ivLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_line"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="@dimen/line_bottom_margin" />
 
 </FrameLayout>

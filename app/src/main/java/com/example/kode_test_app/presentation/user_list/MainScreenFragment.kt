@@ -35,9 +35,14 @@ class MainScreenFragment : BaseFragment<FragmentMainScreenBinding>() {
             searchView.onQueryTextChanged { query ->
                 viewModel.queryText.value = query
             }
-            searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
-                binding.iconSort.isVisible = !hasFocus
-                binding.btnCancel.isVisible = hasFocus
+            searchView.setOnQueryTextFocusChangeListener { view, hasFocus ->
+                binding.apply {
+                    iconSort.isVisible = !hasFocus
+                    btnCancel.isVisible = hasFocus
+                    btnCancel.setOnClickListener {
+                        view.clearFocus()
+                    }
+                }
             }
         }
 
@@ -46,6 +51,7 @@ class MainScreenFragment : BaseFragment<FragmentMainScreenBinding>() {
         TabLayoutMediator(binding.tabLayout, binding.vpMainScreen) { tab, position ->
             tab.text = DepartmentList.departmentListUi[position]
         }.attach()
+
 
         binding.vpMainScreen.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
