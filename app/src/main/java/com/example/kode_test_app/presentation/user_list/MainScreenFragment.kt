@@ -8,11 +8,10 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.example.kode_test_app.core.BaseFragment
+import com.example.kode_test_app.core.utils.onQueryTextChanged
 import com.example.kode_test_app.databinding.FragmentMainScreenBinding
 import com.example.kode_test_app.domain.model.DepartmentList
 import com.example.kode_test_app.presentation.user_main_screen.UserListViewPagerAdapter
-import com.example.kode_test_app.core.utils.SortType
-import com.example.kode_test_app.core.utils.onQueryTextChanged
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,9 +27,11 @@ class MainScreenFragment : BaseFragment<FragmentMainScreenBinding>() {
 
         viewPager = UserListViewPagerAdapter(this)
 
+        val mainScreenBottomSheetFragment = MainScreenBottomSheetFragment()
+
         binding.apply {
             iconSort.setOnClickListener {
-                showUserListDialogFragment()
+                mainScreenBottomSheetFragment.show(parentFragmentManager, "BottomSheetDialog")
             }
             searchView.onQueryTextChanged { query ->
                 viewModel.queryText.value = query
@@ -60,20 +61,6 @@ class MainScreenFragment : BaseFragment<FragmentMainScreenBinding>() {
             }
         })
 
-        setupUserListDialogFragment()
-    }
-
-    private fun showUserListDialogFragment() {
-        MainScreenDialogFragment.show(parentFragmentManager)
-    }
-
-    private fun setupUserListDialogFragment() {
-        MainScreenDialogFragment.setupListener(parentFragmentManager, viewLifecycleOwner) {
-            when (it) {
-                0 -> viewModel.sortType.value = SortType.BY_NAME
-                1 -> viewModel.sortType.value = SortType.BY_DATE
-            }
-        }
     }
 
     override fun initBinding(

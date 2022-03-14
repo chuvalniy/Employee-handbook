@@ -40,6 +40,7 @@ class UserDetailFragment : BaseFragment<FragmentUserDetailBinding>() {
             tvUserName.text = user.name
             tvUserTag.text = user.userTag
             tvPosition.text = user.position
+            tvPhoneNumber.text = user.phone
             tvAge.text = "${convertFromTimestampIntoDate(user.timestamp, ConvertType.NUMBER_OF_YEARS)} years"
             tvBirthday.text = convertFromTimestampIntoDate(user.timestamp, ConvertType.FULL_DATE)
             ivArrowBack.setOnClickListener { findNavController().navigateUp() }

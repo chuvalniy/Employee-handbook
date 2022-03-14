@@ -4,4 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_hint">Enter name, tag, mail...</string>
     <string name="button_cancel">Cancel</string>
+    <string name="sort">Sort</string>
+    <string name="by_alphabet">By alphabet</string>
+    <string name="by_birthday">By birthday</string>
 </resources>
