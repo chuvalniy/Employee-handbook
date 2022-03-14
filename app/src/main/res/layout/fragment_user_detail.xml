@@ -58,7 +58,7 @@
         android:layout_width="104dp"
         android:layout_height="104dp"
         android:layout_marginBottom="24dp"
-        android:src="@drawable/img"
+        android:src="@drawable/plug"
         app:layout_constraintBottom_toTopOf="@+id/tvUserName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

@@ -16,7 +16,7 @@ fun convertFromTimestampIntoDate(timestamp: Long, convertType: ConvertType): Str
             SimpleDateFormat("yyyy").format(timestamp)
         }
         ConvertType.FULL_DATE -> {
-            SimpleDateFormat("dd MMMM yyyy").format(timestamp)
+            SimpleDateFormat("d MMMM yyyy").format(timestamp)
         }
     }
 }

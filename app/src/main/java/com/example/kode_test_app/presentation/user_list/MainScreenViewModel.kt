@@ -35,7 +35,7 @@ class MainScreenViewModel @Inject constructor(
         refreshDataFromRepository()
     }
 
-    private fun refreshDataFromRepository() {
+    fun refreshDataFromRepository() {
         viewModelScope.launch {
             repository.refreshData()
         }

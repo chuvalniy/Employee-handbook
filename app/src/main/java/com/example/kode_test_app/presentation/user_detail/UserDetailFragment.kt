@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.kode_test_app.core.BaseFragment
 import com.example.kode_test_app.core.utils.ConvertType
@@ -41,6 +42,7 @@ class UserDetailFragment : BaseFragment<FragmentUserDetailBinding>() {
             tvPosition.text = user.position
             tvAge.text = "${convertFromTimestampIntoDate(user.timestamp, ConvertType.NUMBER_OF_YEARS)} years"
             tvBirthday.text = convertFromTimestampIntoDate(user.timestamp, ConvertType.FULL_DATE)
+            ivArrowBack.setOnClickListener { findNavController().navigateUp() }
         }
     }
 
