@@ -1,17 +1,14 @@
 package com.example.kode_test_app.presentation.user_list
 
 import androidx.lifecycle.*
-import com.example.kode_test_app.domain.model.User
 import com.example.kode_test_app.domain.repository.UserRepository
-import com.example.kode_test_app.utils.Resource
-import com.example.kode_test_app.utils.SortType
+import com.example.kode_test_app.core.utils.SortType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
-/* This ViewModel also used in UserListFragment to observe data and set filterType */
+/* This ViewModel also used in UserListFragment to observe data  */
 
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(
@@ -40,11 +37,7 @@ class MainScreenViewModel @Inject constructor(
 
     private fun refreshDataFromRepository() {
         viewModelScope.launch {
-            try {
-                repository.refreshData()
-            } catch (e: Exception) {
-
-            }
+            repository.refreshData()
         }
     }
 }

@@ -1,34 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presentation.user_main_screen.MainScreenFragment">
+    tools:context=".presentation.user_list.MainScreenFragment">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp">
+        android:orientation="horizontal">
 
-        <SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
+        <FrameLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:iconifiedByDefault="false"
-            android:queryHint="Enter name, tag, mail..."
-            android:searchIcon="@drawable/ic_search"
-            android:queryBackground="@android:color/transparent"
-            android:background="@drawable/searchview_background"/>
+            android:layout_marginStart="@dimen/layout_margin"
+            android:layout_marginTop="@dimen/layout_margin"
+            android:layout_marginEnd="@dimen/layout_margin"
+            android:layout_marginBottom="@dimen/search_frame_bottom_margin"
+            android:layout_weight="1"
+            android:background="@drawable/searchview_background">
 
-        <ImageView
-            android:id="@+id/iconSort"
+            <SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:iconifiedByDefault="false"
+                android:queryBackground="@android:color/transparent"
+                android:queryHint="@string/search_hint"
+                android:searchIcon="@drawable/ic_search" />
+
+            <ImageView
+                android:id="@+id/iconSort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|end"
+                android:layout_marginEnd="14dp"
+                android:src="@drawable/ic_sort" />
+
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/btnCancel"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_sort"
-            android:layout_gravity="center|end"/>
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/cancel_button_margin_end"
+            android:text="@string/button_cancel"
+            android:visibility="gone" />
 
-    </FrameLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,10 +59,34 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingStart="@dimen/tab_layout_start_padding"
+                app:tabGravity="fill"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/textPrimary"
+                app:tabTextAppearance="@style/tab_text"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_line_height"
+                android:layout_gravity="bottom"
+                android:background="@color/defaultPrimary" />
+
+        </FrameLayout>
+
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vpMainScreen"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

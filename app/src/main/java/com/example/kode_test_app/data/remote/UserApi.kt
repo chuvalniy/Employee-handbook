@@ -1,10 +1,7 @@
 package com.example.kode_test_app.data.remote
 
-import com.example.kode_test_app.domain.model.UserResponse
-import retrofit2.Response
+import com.example.kode_test_app.data.remote.dto.UserResponse
 import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Headers
 
 interface UserApi {
 

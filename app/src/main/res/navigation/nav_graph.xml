@@ -18,5 +18,10 @@
         android:id="@+id/user_detail"
         android:name="com.example.kode_test_app.presentation.user_detail.UserDetailFragment"
         android:label="fragment_user_detail"
-        tools:layout="@layout/fragment_user_detail" />
+        tools:layout="@layout/fragment_user_detail" >
+        <argument
+            android:name="id"
+            app:argType="string"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>
