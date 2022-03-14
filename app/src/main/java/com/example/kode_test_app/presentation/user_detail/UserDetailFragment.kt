@@ -34,9 +34,8 @@ class UserDetailFragment : BaseFragment<FragmentUserDetailBinding>() {
 
     private fun setUser(user: User) {
         binding.apply {
-            tvUserName.text = user.firstName
-            tvUserSurname.text = user.lastName
-            tvUserTag.text = user.userTag.lowercase()
+            tvUserName.text = user.name
+            tvUserTag.text = user.userTag
             tvPosition.text = user.position
         }
     }

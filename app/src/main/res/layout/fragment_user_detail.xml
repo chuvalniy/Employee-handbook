@@ -16,42 +16,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
         android:id="@+id/tvUserName"
         style="@style/TitleBold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/tvUserSurname"
-        app:layout_constraintEnd_toStartOf="@+id/tvUserSurname"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/view"
-        app:layout_constraintTop_toTopOf="@+id/tvUserSurname"
-        tools:text="Alisa" />
-
-    <TextView
-        android:id="@+id/tvUserSurname"
-        style="@style/TitleBold"
-        android:layout_marginBottom="12dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
+        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toTopOf="@+id/tvPosition"
         app:layout_constraintEnd_toStartOf="@+id/tvUserTag"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tvUserName"
-        tools:text="Ivanova" />
+        app:layout_constraintStart_toEndOf="@+id/view"
+        tools:text="Alisa Ivanova" />
 
     <TextView
         android:id="@+id/tvUserTag"
         style="@style/TitleRegular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/tvUserSurname"
+        app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
         app:layout_constraintEnd_toStartOf="@+id/view"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tvUserSurname"
-        app:layout_constraintTop_toTopOf="@+id/tvUserSurname"
+        app:layout_constraintStart_toEndOf="@+id/tvUserName"
+        app:layout_constraintTop_toTopOf="@+id/tvUserName"
         tools:text="al" />
 
     <TextView
@@ -71,7 +59,7 @@
         android:layout_height="104dp"
         android:layout_marginBottom="24dp"
         android:src="@drawable/img"
-        app:layout_constraintBottom_toTopOf="@+id/tvUserSurname"
+        app:layout_constraintBottom_toTopOf="@+id/tvUserName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
@@ -144,8 +132,8 @@
         android:id="@+id/ivLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_line"
         android:layout_marginBottom="@dimen/line_bottom_margin"
+        android:src="@drawable/ic_line"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

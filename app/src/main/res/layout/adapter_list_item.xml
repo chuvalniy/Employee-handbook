@@ -39,15 +39,8 @@
                     style="@style/HeadlineMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Alexey" />
+                    tools:text="Alexey Minogarov" />
 
-                <TextView
-                    android:id="@+id/tvUserSurname"
-                    style="@style/HeadlineMedium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    tools:text="Minogarov" />
 
                 <TextView
                     android:id="@+id/tvUserTag"

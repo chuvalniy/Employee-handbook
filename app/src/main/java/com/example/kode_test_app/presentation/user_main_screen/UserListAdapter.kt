@@ -21,8 +21,7 @@ class UserListAdapter(
 
         fun bind(user: User) {
             binding.apply {
-                tvUserName.text = user.firstName
-                tvUserSurname.text = user.lastName
+                tvUserName.text = user.name
                 tvUserTag.text = user.userTag
                 tvDepartment.text = user.department
                 cvUserItem.setOnClickListener {
