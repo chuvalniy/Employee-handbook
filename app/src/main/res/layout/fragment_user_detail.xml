@@ -7,6 +7,16 @@
     tools:context=".presentation.user_detail.UserDetailFragment">
 
     <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/detail_separator_height"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/tvPhoneNumber"
+        app:layout_constraintEnd_toEndOf="@+id/tvAge"
+        app:layout_constraintStart_toStartOf="@+id/ivFavorite"
+        app:layout_constraintTop_toBottomOf="@+id/tvBirthday" />
+
+    <View
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="275dp"
@@ -53,10 +63,10 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:text="Designer" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivAvatar"
-        android:layout_width="104dp"
-        android:layout_height="104dp"
+        android:layout_width="@dimen/image_detail_size"
+        android:layout_height="@dimen/image_detail_size"
         android:layout_marginBottom="24dp"
         android:src="@drawable/plug"
         app:layout_constraintBottom_toTopOf="@+id/tvUserName"
