@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="list_image_size">72dp</dimen>
+    <dimen name="spacing_line_height">0.33dp</dimen>
+    <dimen name="layout_margin">16dp</dimen>
+    <dimen name="search_frame_bottom_margin">12dp</dimen>
+    <dimen name="tab_layout_start_padding">16dp</dimen>
+    <dimen name="line_bottom_margin">9dp</dimen>
+    <dimen name="birthday_end_margin">19.5dp</dimen>
+    <dimen name="cancel_button_margin_end">28dp</dimen>
+    <dimen name="dialog_margin_top">24dp</dimen>
+    <dimen name="dialog_horizontal_margin">18dp</dimen>
+    <dimen name="dialog_margin_bottom">32dp</dimen>
+    <dimen name="image_detail_size">104dp</dimen>
+    <dimen name="detail_separator_height">0.5dp</dimen>
+    <dimen name="sort_dialog_top_line_width">56dp</dimen>
+    <dimen name="sort_dialog_top_line_height">4dp</dimen>
+    <dimen name="sort_dialog_top_line_margin_top">12dp</dimen>
+</resources>
