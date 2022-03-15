@@ -1,6 +1,5 @@
 package com.example.kode_test_app.domain.model
 
-
 object DepartmentList {
     val departmentListUi = listOf(
             "All",
@@ -31,3 +30,4 @@ object DepartmentList {
         "analytics"
     )
 }
+

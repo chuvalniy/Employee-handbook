@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.kode_test_app.core.BaseFragment
 import com.example.kode_test_app.core.utils.ConvertType
+import com.example.kode_test_app.core.utils.ImageLoader.loadImage
 import com.example.kode_test_app.core.utils.convertFromTimestampIntoDate
 import com.example.kode_test_app.databinding.FragmentUserDetailBinding
+import com.example.kode_test_app.domain.model.DepartmentList
 import com.example.kode_test_app.domain.model.User
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,8 +42,11 @@ class UserDetailFragment : BaseFragment<FragmentUserDetailBinding>() {
             tvUserName.text = user.name
             tvUserTag.text = user.userTag
             tvPosition.text = user.position
+            tvPhoneNumber.text = user.phone
+            loadImage(user.avatarUrl, ivAvatar)
             tvAge.text = "${convertFromTimestampIntoDate(user.timestamp, ConvertType.NUMBER_OF_YEARS)} years"
             tvBirthday.text = convertFromTimestampIntoDate(user.timestamp, ConvertType.FULL_DATE)
+            ivArrowBack.setOnClickListener { findNavController().navigateUp() }
         }
     }
 

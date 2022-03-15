@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kode_test_app.core.utils.ConvertType
+import com.example.kode_test_app.core.utils.ImageLoader
 import com.example.kode_test_app.core.utils.convertFromTimestampIntoDate
 import com.example.kode_test_app.databinding.AdapterListItemBinding
+import com.example.kode_test_app.domain.model.DepartmentList
 import com.example.kode_test_app.domain.model.User
 
 class UserListAdapter(
@@ -26,6 +28,7 @@ class UserListAdapter(
                 tvUserName.text = user.name
                 tvUserTag.text = user.userTag
                 tvDepartment.text = user.department
+                ImageLoader.loadImage(user.avatarUrl, ivAvatar)
                 tvBirthday.text = convertFromTimestampIntoDate(user.timestamp, ConvertType.DAY_OF_BIRTH)
                 cvUserItem.setOnClickListener {
                     onMoveToDetail(user)

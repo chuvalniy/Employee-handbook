@@ -31,19 +31,22 @@
                 android:queryHint="@string/search_hint"
                 android:searchIcon="@drawable/ic_search" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/iconSort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|end"
                 android:layout_marginEnd="14dp"
+                android:background="?android:selectableItemBackground"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
                 android:src="@drawable/ic_sort" />
 
         </FrameLayout>
 
         <Button
             android:id="@+id/btnCancel"
-            style="?attr/materialButtonOutlinedStyle"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

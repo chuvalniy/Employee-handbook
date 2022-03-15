@@ -14,12 +14,13 @@
         android:orientation="horizontal"
         android:paddingTop="12dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            
             android:id="@+id/ivAvatar"
             android:layout_width="@dimen/list_image_size"
             android:layout_height="@dimen/list_image_size"
             android:layout_marginStart="16dp"
-            android:src="@drawable/img" />
+            android:src="@drawable/plug" />
 
 
         <FrameLayout

@@ -40,7 +40,12 @@ class UserListFragment : BaseFragment<FragmentUserListBinding>() {
             }
         }
 
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.refreshDataFromRepository()
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
         binding.rvUserList.adapter = adapter
+
     }
 
     override fun initBinding(
