@@ -94,12 +94,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivFavorite" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/ivArrowBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="18dp"
+        android:padding="6dp"
+        android:background="?android:selectableItemBackground"
         android:src="@drawable/ic_baseline_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
