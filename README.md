@@ -26,7 +26,7 @@
 - MVVM
 - Retrofit
 - Room
-- Dagger Hilt
+- Koin
 - Navigation Component
 - ViewModel
 - Coroutines
@@ -34,9 +34,3 @@
 - Flow
 - Glide
 - ViewPager2
-
-
-## Todo
-
-- Loading screen (skeleton)
-- Handle no Internet connection error
