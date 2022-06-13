@@ -18,7 +18,8 @@ class BaseApp : Application() {
                 repositoryModule,
                 mainScreenViewModel,
                 detailScreenViewModel,
-                coreModule
+                coreModule,
+                useCaseModule
             )
         }
     }

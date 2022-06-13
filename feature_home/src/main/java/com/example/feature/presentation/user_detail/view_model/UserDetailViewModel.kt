@@ -5,12 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.example.feature.domain.model.User
 import com.example.feature.domain.repository.UserRepository
+import com.example.feature.domain.use_case.GetUserByIdUseCase
 
 class UserDetailViewModel(
-    private val repository: UserRepository
+    private val getUserByIdUseCase: GetUserByIdUseCase
 ) : ViewModel() {
 
     fun getUser(id: String): LiveData<User> {
-        return repository.getUserById(id).asLiveData()
+        return getUserByIdUseCase(id).asLiveData()
     }
 }

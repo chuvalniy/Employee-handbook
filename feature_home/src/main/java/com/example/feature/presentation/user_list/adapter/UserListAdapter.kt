@@ -1,4 +1,4 @@
-package com.example.feature.presentation.user_main.user_list.adapter
+package com.example.feature.presentation.user_list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

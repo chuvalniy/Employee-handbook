@@ -1,4 +1,4 @@
-package com.example.feature.presentation.user_main.user_list.fragment
+package com.example.feature.presentation.user_list.fragment
 
 import android.net.Uri
 import android.os.Bundle
@@ -12,7 +12,7 @@ import com.example.core.utils.Resource
 import com.example.feature.R
 import com.example.feature.databinding.FragmentUserListBinding
 import com.example.feature.presentation.user_detail.fragment.UserDetailFragment
-import com.example.feature.presentation.user_main.user_list.adapter.UserListAdapter
+import com.example.feature.presentation.user_list.adapter.UserListAdapter
 import com.example.feature.presentation.user_main.view_model.MainScreenViewModel
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel

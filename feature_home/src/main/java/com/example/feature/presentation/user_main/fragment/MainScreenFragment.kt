@@ -11,7 +11,7 @@ import com.example.core.ui.onQueryTextChanged
 import com.example.feature.databinding.FragmentMainScreenBinding
 import com.example.feature.domain.model.DepartmentList
 import com.example.feature.presentation.user_main.view_model.MainScreenViewModel
-import com.example.feature.presentation.user_main.user_list.adapter.UserListViewPagerAdapter
+import com.example.feature.presentation.user_list.adapter.UserListViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 

@@ -1,6 +1,5 @@
 package com.example.feature.data.repository
 
-import android.util.Log
 import androidx.room.withTransaction
 import com.example.core.utils.networkBoundResource
 import com.example.feature.data.local.UserDatabase
@@ -24,7 +23,8 @@ class UserRepositoryImpl(
         searchQuery: String
     ) = networkBoundResource(
         query = {
-            userDao.getUsers(department, sortType, searchQuery).map { it.map { user -> user.toUser() } }
+            userDao.getUsers(department, sortType, searchQuery)
+                .map { it.map { user -> user.toUser() } }
         },
         fetch = {
             api.getUsers()

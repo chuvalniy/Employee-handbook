@@ -40,23 +40,6 @@ val databaseModule = module {
     single { provideUserDao(database = get()) }
 }
 
-val repositoryModule = module {
-    fun provideUserRepository(db: UserDatabase, api: UserApi): UserRepository {
-        return UserRepositoryImpl(db, api)
-    }
 
-    single { provideUserRepository(db = get(), api = get()) }
-}
 
-val detailScreenViewModel = module {
-    viewModel {
-        UserDetailViewModel(repository = get())
-    }
-}
-
-val mainScreenViewModel = module {
-    viewModel {
-        MainScreenViewModel(repository = get())
-    }
-}
 
