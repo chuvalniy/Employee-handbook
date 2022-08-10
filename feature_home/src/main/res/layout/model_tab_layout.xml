@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/tab_layout_start_padding"
+        app:tabGravity="fill"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/textPrimary"
+        app:tabTextAppearance="@style/tab_text"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spacing_line_height"
+        android:layout_gravity="bottom"
+        android:background="@color/defaultPrimary" />
+
+</LinearLayout>

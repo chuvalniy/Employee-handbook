@@ -16,7 +16,7 @@ class BaseApp : Application() {
                 apiModule,
                 databaseModule,
                 repositoryModule,
-                mainScreenViewModel,
+                homeViewModel,
                 detailScreenViewModel,
                 coreModule,
                 useCaseModule

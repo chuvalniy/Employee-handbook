@@ -1,15 +1,22 @@
 package com.example.feature.di
 
-import com.example.feature.data.local.UserDatabase
-import com.example.feature.data.remote.UserApi
-import com.example.feature.data.repository.UserRepositoryImpl
+import com.example.feature.data.local.HomeDatabase
+import com.example.feature.data.remote.HomeApi
+import com.example.feature.data.repository.HomeRepositoryImpl
 import com.example.feature.domain.repository.UserRepository
+import com.example.feature.domain.use_case.FetchDataUseCase
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    fun provideUserRepository(db: UserDatabase, api: UserApi): UserRepository {
-        return UserRepositoryImpl(db, api)
+    fun provideUserRepository(db: HomeDatabase, api: HomeApi): UserRepository {
+        return HomeRepositoryImpl(db, api)
     }
 
     single { provideUserRepository(db = get(), api = get()) }
+}
+
+val useCaseModule = module {
+    factory {
+        FetchDataUseCase(repository = get())
+    }
 }

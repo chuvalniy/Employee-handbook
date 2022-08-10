@@ -3,28 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/user_list">
-
-    <fragment
-        android:id="@+id/user_list"
-        android:name="com.example.feature.presentation.user_main.fragment.MainScreenFragment"
-        android:label="fragment_user_list"
-        tools:layout="@layout/fragment_user_list" >
-        <deepLink
-            android:id="@+id/deepLinkUserList"
-            app:uri="myApp://featureUserList"/>
-    </fragment>
-    <fragment
-        android:id="@+id/user_detail"
-        android:name="com.example.feature.presentation.user_detail.fragment.UserDetailFragment"
-        android:label="fragment_user_detail"
-        tools:layout="@layout/fragment_user_detail" >
-        <argument
-            android:name="id"
-            app:argType="string"
-            android:defaultValue="0" />
-        <deepLink
-            android:id="@+id/deepLinkUserDetail"
-            app:uri="myApp://featureUserList/{id}"/>
-    </fragment>
+    app:startDestination="@id/home_nav_graph">
+    <include app:graph="@navigation/home_nav_graph" />
 </navigation>
