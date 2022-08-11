@@ -16,7 +16,7 @@ data class CacheDataSource(
     val userTag: String,
     val phone: String
 ) {
-    fun toUser(): DomainDataSource {
+    fun toDomainDataSource(): DomainDataSource {
         return DomainDataSource(
             avatarUrl = avatarUrl,
             timestamp = timestamp,

@@ -23,20 +23,23 @@ class HomeViewModel(
     }
 
     private fun fetchData(
-        department: String = _uiState.value.filterType,
+        department: String = _uiState.value.departmentFilter,
         sortType: SortType = _uiState.value.sortType,
         searchQuery: String = _uiState.value.searchQuery
     ) = viewModelScope.launch {
         fetchDataUseCase(department, sortType, searchQuery).onEach { result ->
             when (result) {
                 is Resource.Error -> {
-
+                    _uiState.value = _uiState.value.copy(isLoading = false)
                 }
                 is Resource.Loading -> {
-
+                    _uiState.value = _uiState.value.copy(isLoading = result.isLoading)
                 }
                 is Resource.Success -> {
-
+                    _uiState.value = _uiState.value.copy(
+                        isLoading = false,
+                        data = result.data ?: emptyList()
+                    )
                 }
             }
         }.launchIn(this)
@@ -44,17 +47,22 @@ class HomeViewModel(
 
     fun onEvent(event: UiEvent) {
         when (event) {
-            is UiEvent.FilterSelected -> {
-                _uiState.value = _uiState.value.copy(filterType = event.filterType)
+            is UiEvent.DepartmentSelected -> {
+                if (_uiState.value.departmentFilter == event.department) return
+
+                _uiState.value = _uiState.value.copy(departmentFilter = event.department)
+                viewModelScope.launch { fetchData() }
             }
             is UiEvent.SearchQueryChanged -> {
                 _uiState.value = _uiState.value.copy(searchQuery = event.query)
+                viewModelScope.launch { fetchData() }
             }
             is UiEvent.SortTypeSelected -> {
                 _uiState.value = _uiState.value.copy(sortType = event.sortType)
+                viewModelScope.launch { fetchData() }
             }
             is UiEvent.UserItemClicked -> {
-                viewModelScope.launch { _uiEffect.send(UiSideEffect.NavigateToDetails(event.id)) }
+                viewModelScope.launch { _uiEffect.send(UiSideEffect.NavigateToDetails(event.user)) }
             }
             is UiEvent.FilterButtonClicked -> {
                 viewModelScope.launch { _uiEffect.send(UiSideEffect.ShowFilterDialog) }

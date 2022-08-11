@@ -19,7 +19,7 @@ data class UserDto(
     val userTag: String,
     val phone: String
 ) {
-    fun toUserEntity(): CacheDataSource {
+    fun toCacheDataSource(): CacheDataSource {
         return CacheDataSource(
             avatarUrl = avatarUrl,
             timestamp = convertFromDateIntoTimestamp(birthday),

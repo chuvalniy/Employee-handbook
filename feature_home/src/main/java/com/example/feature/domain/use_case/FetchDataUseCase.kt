@@ -10,5 +10,5 @@ class FetchDataUseCase(
     operator fun invoke(department: String,
                         sortType: SortType,
                         searchQuery: String
-    ) = repository.getUsers(department, sortType, searchQuery)
+    ) = repository.fetchUsers(department, sortType, searchQuery)
 }

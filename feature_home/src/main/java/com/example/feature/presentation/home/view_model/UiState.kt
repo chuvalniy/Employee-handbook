@@ -8,5 +8,5 @@ data class UiState(
     val isLoading: Boolean = false,
     val searchQuery: String = "",
     val sortType: SortType = SortType.BY_NAME,
-    val filterType: String = DepartmentList.departmentListDatabase[0],
+    val departmentFilter: String = DepartmentList.departmentListDatabase[0],
 )

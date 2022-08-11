@@ -7,6 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
 
-    fun getUsers(department: String, sortType: SortType, searchQuery: String): Flow<Resource<List<DomainDataSource>>>
+    fun fetchUsers(department: String, sortType: SortType, searchQuery: String): Flow<Resource<List<DomainDataSource>>>
 
 }
