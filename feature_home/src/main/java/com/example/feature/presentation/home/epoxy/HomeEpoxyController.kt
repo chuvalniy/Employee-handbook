@@ -3,10 +3,7 @@ package com.example.feature.presentation.home.epoxy
 import android.util.Log
 import com.airbnb.epoxy.TypedEpoxyController
 import com.example.feature.domain.model.DomainDataSource
-import com.example.feature.presentation.home.epoxy.model.HomeSearchModel
-import com.example.feature.presentation.home.epoxy.model.HomeTabLayoutModel
-import com.example.feature.presentation.home.epoxy.model.HomeUserItemModel
-import com.example.feature.presentation.home.epoxy.model.ShimmerUserItemModel
+import com.example.feature.presentation.home.epoxy.model.*
 import com.example.feature.presentation.home.view_model.UiState
 
 class HomeEpoxyController(
@@ -28,6 +25,10 @@ class HomeEpoxyController(
             .addTo(this)
 
         if (state?.isLoading == true) {
+            HomeLoadingHeaderModel()
+                .id("shimmer_loading_header")
+                .addTo(this)
+
             repeat(8) {
                 ShimmerUserItemModel()
                     .id("shimmer_user_item_$it")

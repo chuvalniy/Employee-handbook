@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.utils.Resource
 import com.example.feature.domain.use_case.FetchDataUseCase
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -45,6 +47,7 @@ class HomeViewModel(
         }.launchIn(this)
     }
 
+
     fun onEvent(event: UiEvent) {
         when (event) {
             is UiEvent.DepartmentSelected -> {
@@ -56,6 +59,7 @@ class HomeViewModel(
             is UiEvent.SearchQueryChanged -> {
                 _uiState.value = _uiState.value.copy(searchQuery = event.query)
                 viewModelScope.launch { fetchData() }
+
             }
             is UiEvent.SortTypeSelected -> {
                 _uiState.value = _uiState.value.copy(sortType = event.sortType)

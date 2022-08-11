@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.airbnb.epoxy.EpoxyController
 import com.example.core.ui.BaseFragment
 import com.example.feature.databinding.FragmentHomeBinding
@@ -56,7 +57,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.uiEffect.collect { effect ->
                 when (effect) {
-                    is UiSideEffect.NavigateToDetails -> TODO()
+                    is UiSideEffect.NavigateToDetails -> {
+                        val action = HomeFragmentDirections.actionHomeToDetails(effect.user)
+                        findNavController().navigate(action)
+                    }
                     is UiSideEffect.ShowFilterDialog -> TODO()
                     is UiSideEffect.ShowSnackbar -> TODO()
                 }

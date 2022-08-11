@@ -6,22 +6,22 @@
     app:startDestination="@id/home_">
 
     <fragment
-        android:id="@+id/details"
-        android:name="com.example.feature.presentation.details.fragment.DetailFragment"
-        android:label="fragment_user_detail"
-        tools:layout="@layout/fragment_detail">
-        <argument
-            android:name="id"
-            app:argType="string"
-            android:defaultValue="0" />
-    </fragment>
-    <fragment
         android:id="@+id/home_"
         android:name="com.example.feature.presentation.home.fragment.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_home__to_details"
+            android:id="@+id/action_home_to_details"
             app:destination="@id/details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/details"
+        android:name="com.example.feature.presentation.details.fragment.DetailFragment"
+        android:label="fragment_user_detail"
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="user"
+            app:argType="com.example.feature.domain.model.DomainDataSource" />
     </fragment>
 </navigation>
