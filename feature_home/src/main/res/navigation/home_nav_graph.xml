@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_home_to_details"
             app:destination="@id/details" />
+        <action
+            android:id="@+id/action_home_to_filter_dialog"
+            app:destination="@id/filter_dialog" />
     </fragment>
 
     <fragment
@@ -24,4 +27,8 @@
             android:name="user"
             app:argType="com.example.feature.domain.model.DomainDataSource" />
     </fragment>
+    <dialog
+        android:id="@+id/filter_dialog"
+        android:name="com.example.feature.presentation.home.fragment.FilterBottomSheetFragment"
+        android:label="FilterBottomSheetFragment" />
 </navigation>

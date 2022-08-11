@@ -8,4 +8,5 @@ sealed class UiEvent {
     data class DepartmentSelected(val department: String): UiEvent()
     data class UserItemClicked(val user: DomainDataSource): UiEvent()
     object FilterButtonClicked : UiEvent()
+    object TryAgainButtonClicked : UiEvent()
 }

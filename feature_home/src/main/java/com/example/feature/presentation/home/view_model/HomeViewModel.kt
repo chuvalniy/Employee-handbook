@@ -32,7 +32,10 @@ class HomeViewModel(
         fetchDataUseCase(department, sortType, searchQuery).onEach { result ->
             when (result) {
                 is Resource.Error -> {
-                    _uiState.value = _uiState.value.copy(isLoading = false)
+                    _uiState.value = _uiState.value.copy(
+                        isLoading = false,
+                        error = result.error
+                    )
                 }
                 is Resource.Loading -> {
                     _uiState.value = _uiState.value.copy(isLoading = result.isLoading)
@@ -40,7 +43,8 @@ class HomeViewModel(
                 is Resource.Success -> {
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
-                        data = result.data ?: emptyList()
+                        data = result.data ?: emptyList(),
+                        error = null
                     )
                 }
             }
@@ -70,6 +74,9 @@ class HomeViewModel(
             }
             is UiEvent.FilterButtonClicked -> {
                 viewModelScope.launch { _uiEffect.send(UiSideEffect.ShowFilterDialog) }
+            }
+            UiEvent.TryAgainButtonClicked -> {
+                viewModelScope.launch { fetchData() }
             }
         }
     }

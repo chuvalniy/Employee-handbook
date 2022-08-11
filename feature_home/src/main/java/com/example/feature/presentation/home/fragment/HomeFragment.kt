@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.airbnb.epoxy.EpoxyController
 import com.example.core.ui.BaseFragment
+import com.example.feature.R
 import com.example.feature.databinding.FragmentHomeBinding
 import com.example.feature.presentation.home.epoxy.HomeEpoxyController
 import com.example.feature.presentation.home.view_model.HomeViewModel
@@ -28,7 +29,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         setupEpoxyController()
 
         observeUiState()
-        observeUiEffect()
+        observeUiEffects()
+
+        processUiEvents()
+    }
+
+    private fun processUiEvents() {
+        binding.btnTryAgain.setOnClickListener {
+            viewModel.onEvent(UiEvent.TryAgainButtonClicked)
+        }
     }
 
     private fun setupEpoxyController() {
@@ -51,9 +60,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun processUiState(state: UiState) {
         epoxyController?.setData(state)
+        binding.layoutErrorState.isVisible = state.error != null
+        binding.epoxyRecyclerView.isVisible = state.error == null
     }
 
-    private fun observeUiEffect() {
+    private fun observeUiEffects() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.uiEffect.collect { effect ->
                 when (effect) {
@@ -61,8 +72,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         val action = HomeFragmentDirections.actionHomeToDetails(effect.user)
                         findNavController().navigate(action)
                     }
-                    is UiSideEffect.ShowFilterDialog -> TODO()
-                    is UiSideEffect.ShowSnackbar -> TODO()
+                    is UiSideEffect.ShowFilterDialog -> {
+                        findNavController().navigate(R.id.action_home_to_filter_dialog)
+                    }
+                    is UiSideEffect.ShowSnackbar -> {
+
+                    }
                 }
             }
         }

@@ -1,6 +1,7 @@
 package com.example.core.ui
 
-import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
+
 
 inline fun SearchView.onQueryTextChanged(crossinline listener: (String) -> Unit) {
     this.setOnQueryTextListener(object: SearchView.OnQueryTextListener {

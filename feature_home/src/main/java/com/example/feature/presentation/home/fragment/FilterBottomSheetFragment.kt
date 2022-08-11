@@ -35,8 +35,4 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    companion object {
-        const val BOTTOM_SHEET_DIALOG_TAG = "BottomSheetDialog"
-    }
 }

@@ -35,6 +35,12 @@ class HomeEpoxyController(
                     .addTo(this)
             }
         } else if (state?.isLoading == false) {
+            if (state.data.isEmpty() && state.searchQuery.isNotEmpty()) {
+                HomeSearchErrorModel()
+                    .id("home_search_error")
+                    .addTo(this)
+            }
+
             state.data.forEach { item ->
                 HomeUserItemModel(item, onMoveToDetail)
                     .id("user_${item.id}")
