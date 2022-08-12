@@ -5,11 +5,13 @@
 
 ## Key Features
 
-- Sort list by alphabet or date
-- Search employee (by name or tag)
-- Filter by department (ViewPager2)
+- Sort employees by alphabet/birthday
+- Search employees by name/tag
+- Filter by department (TabLayout)
 - Get detail info about employee
-- Cache (Room)
+- Cache (Room + Shared preferences)
+- Handling process death
+- Various error processing
 
 
 ## App Preview
@@ -30,10 +32,10 @@
 - Navigation Component
 - ViewModel
 - Coroutines
-- LiveData
 - Flow
 - Glide
-- ViewPager2
+- Epoxy
 
 
-## Profile images not loading due to API call issues
+## Source: https://www.figma.com/file/GRRKONipVClULsfdCAuVs1/KODE-Trainee-Dev-%D0%9E%D1%81%D0%B5%D0%BD%D1%8C'21?node-id=11%3A19723
+
