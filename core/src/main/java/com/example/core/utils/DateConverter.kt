@@ -15,7 +15,8 @@ fun convertFromTimestampIntoDate(timestamp: Long, convertType: ConvertType): Str
             (currentYear - ageOfBirth.toInt()).toString()
         }
         ConvertType.DAY_OF_BIRTH -> {
-            SimpleDateFormat("yyyy").format(timestamp)
+            SimpleDateFormat("d MMM").format(System.currentTimeMillis()).lowercase()
+//            SimpleDateFormat("d MMM").format(timestamp).lowercase()
         }
         ConvertType.FULL_DATE -> {
             SimpleDateFormat("d MMMM yyyy").format(timestamp)
