@@ -1,5 +1,6 @@
 package com.example.feature.data.repository
 
+import android.util.Log
 import androidx.room.withTransaction
 import com.example.core.utils.Resource
 import com.example.feature.data.local.cache.HomeDatabase
@@ -19,40 +20,45 @@ class HomeRepositoryImpl(
 
     private val dao = db.dao
 
-    override fun fetchUsers(
+    override fun fetchData(
         department: String,
         sortType: SortType,
         searchQuery: String,
-        refreshData: Boolean
-    ): Flow<Resource<List<DomainDataSource>>> = flow {
-        emit(Resource.Loading(isLoading = true))
+        fetchFromRemote: Boolean
+    ): Flow<Resource<List<DomainDataSource>>> {
+        return flow {
+            emit(Resource.Loading(isLoading = true))
 
-        val cache = dao.fetchCache(department, sortType, searchQuery)
+            val cache = dao.fetchCache(department, sortType, searchQuery)
 
-        if (cache.isNotEmpty()) {
             emit(Resource.Success(cache.map { it.toDomainDataSource() }))
-            emit(Resource.Loading(isLoading = false))
-        }
 
-        val response = try {
-            api.fetchCloudDataSource()
-        } catch (e: Exception) {
-            emit(Resource.Error(error = e.message))
-            null
-        }
 
-        response?.let { data ->
-            db.withTransaction {
-                dao.clearCache()
-                dao.insertCache(data.items.map { it.toCacheDataSource() })
+            if (!fetchFromRemote) {
+                emit(Resource.Loading(isLoading = false))
+                return@flow
             }
 
-            emit(
-                Resource.Success(
-                    dao.fetchCache(department, sortType, searchQuery)
-                        .map { it.toDomainDataSource() })
-            )
-            emit(Resource.Loading(isLoading = false))
+            val response = try {
+                api.fetchCloudDataSource()
+            } catch (e: Exception) {
+                emit(Resource.Error(error = e.message))
+                null
+            }
+
+            response?.let { data ->
+                db.withTransaction {
+                    dao.clearCache()
+                    dao.insertCache(data.items.map { it.toCacheDataSource() })
+                }
+
+                emit(
+                    Resource.Success(
+                        dao.fetchCache(department, sortType, searchQuery)
+                            .map { it.toDomainDataSource() })
+                )
+                emit(Resource.Loading(isLoading = false))
+            }
         }
     }
 

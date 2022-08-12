@@ -1,9 +1,11 @@
 package com.example.feature.presentation.home.fragment
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -14,6 +16,7 @@ import com.example.feature.R
 import com.example.feature.databinding.FragmentHomeBinding
 import com.example.feature.domain.model.DepartmentList
 import com.example.feature.presentation.home.epoxy.HomeEpoxyController
+import com.example.feature.presentation.home.model.SortType
 import com.example.feature.presentation.home.model.UiEvent
 import com.example.feature.presentation.home.model.UiSideEffect
 import com.example.feature.presentation.home.model.UiState
@@ -101,7 +104,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         epoxyController?.setData(state)
         binding.swipeRefreshLayout.isRefreshing = state.isRefreshing
         binding.layoutSearchError.isVisible =
-            state.data.isEmpty() && state.searchQuery.isNotEmpty() && !state.isLoading
+            !state.isLoading && state.data.isEmpty() && state.searchQuery.isNotEmpty()
+
 //        binding.layoutErrorState.isVisible = state.error != null
 //        binding.epoxyRecyclerView.isVisible = state.error == null
     }

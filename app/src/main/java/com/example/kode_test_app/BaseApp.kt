@@ -19,7 +19,6 @@ class BaseApp : Application() {
                 homeViewModel,
                 detailScreenViewModel,
                 coreModule,
-                useCaseModule
             )
         }
     }

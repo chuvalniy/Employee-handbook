@@ -1,12 +1,11 @@
 package com.example.feature.presentation.home.view_model
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.utils.Resource
 import com.example.feature.domain.model.DomainDataSource
-import com.example.feature.domain.use_case.*
+import com.example.feature.domain.repository.HomeRepository
 import com.example.feature.presentation.home.model.SortType
 import com.example.feature.presentation.home.model.UiEvent
 import com.example.feature.presentation.home.model.UiSideEffect
@@ -16,11 +15,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val fetchDataUseCase: FetchDataUseCase,
-    private val fetchFilterUseCase: FetchFilterUseCase,
-    private val fetchSortTypeUseCase: FetchSortTypeUseCase,
-    private val saveFilterUseCase: UpdateFilterUseCase,
-    private val saveSortTypeUseCase: UpdateSortTypeUseCase,
+    private val repository: HomeRepository,
     private val state: SavedStateHandle
 ) : ViewModel() {
 
@@ -32,29 +27,29 @@ class HomeViewModel(
 
     init {
         _uiState.value = _uiState.value.copy(
-            sortType = fetchSortTypeUseCase(),
-            departmentFilter = fetchFilterUseCase(),
-            searchQuery = state.get<String>("query") ?: ""
+            sortType = repository.fetchSortType(),
+            departmentFilter = repository.fetchFilter(),
+            searchQuery = state.get<String>(KEY_SEARCH_SAVED_STATE) ?: DEFAULT_VALUE
         )
-        fetchData()
+        fetchData(fetchFromRemote = true)
     }
 
     private fun fetchData(
         department: String = _uiState.value.departmentFilter,
         sortType: SortType = _uiState.value.sortType,
         searchQuery: String = _uiState.value.searchQuery,
-        refreshData: Boolean = _uiState.value.isRefreshing
+        fetchFromRemote: Boolean = false
     ) = viewModelScope.launch {
-        fetchDataUseCase(department, sortType, searchQuery, refreshData).onEach { result ->
+        repository.fetchData(department, sortType, searchQuery, fetchFromRemote).onEach { result ->
             when (result) {
-                is Resource.Error -> {
-                    processErrorResult(result)
-                }
                 is Resource.Loading -> {
                     _uiState.value = _uiState.value.copy(isLoading = result.isLoading)
                 }
                 is Resource.Success -> {
                     processSuccessResult(result)
+                }
+                is Resource.Error -> {
+                    processErrorResult(result)
                 }
             }
         }.launchIn(this)
@@ -80,7 +75,6 @@ class HomeViewModel(
         }
     }
 
-
     fun onEvent(event: UiEvent) {
         when (event) {
             is UiEvent.DepartmentSelected -> departmentSelected(event)
@@ -101,7 +95,7 @@ class HomeViewModel(
 
     private fun screenRefreshed() {
         _uiState.value = _uiState.value.copy(isRefreshing = true)
-        viewModelScope.launch { fetchData() }
+        viewModelScope.launch { fetchData(fetchFromRemote = true) }
     }
 
     private fun filterButtonClicked() {
@@ -113,28 +107,35 @@ class HomeViewModel(
     }
 
     private fun sortTypeSelected(event: UiEvent.SortTypeSelected) {
-        saveSortTypeUseCase(event.sortType)
-        _uiState.value = _uiState.value.copy(sortType = fetchSortTypeUseCase())
+        repository.updateSortType(event.sortType)
+        _uiState.value = _uiState.value.copy(sortType = repository.fetchSortType())
         viewModelScope.launch { fetchData() }
     }
 
     private fun searchQueryChanged(event: UiEvent.SearchQueryChanged) {
         if (event.query == _uiState.value.searchQuery) return
-        state["search"] = event.query
+        state[KEY_SEARCH_SAVED_STATE] = event.query
 
-        _uiState.value = _uiState.value.copy(searchQuery = state.get<String>("search") ?: "")
+        _uiState.value = _uiState.value.copy(
+            searchQuery = state.get<String>(KEY_SEARCH_SAVED_STATE) ?: DEFAULT_VALUE
+        )
         viewModelScope.launch { fetchData() }
     }
 
     private fun departmentSelected(event: UiEvent.DepartmentSelected) {
         if (_uiState.value.departmentFilter == event.department) return
-        saveFilterUseCase(event.department)
+        repository.updateFilter(event.department)
 
-        _uiState.value = _uiState.value.copy(departmentFilter = fetchFilterUseCase())
+        _uiState.value = _uiState.value.copy(departmentFilter = repository.fetchFilter())
         viewModelScope.launch { fetchData() }
     }
 
     private fun tryAgainButtonClicked() {
         viewModelScope.launch { fetchData() }
+    }
+
+    private companion object {
+        const val KEY_SEARCH_SAVED_STATE = "search"
+        const val DEFAULT_VALUE = ""
     }
 }

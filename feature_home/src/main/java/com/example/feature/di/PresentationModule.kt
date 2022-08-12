@@ -8,19 +8,15 @@ import org.koin.dsl.module
 
 val detailScreenViewModel = module {
     viewModel { (handle: SavedStateHandle) ->
-        DetailViewModel(savedStateHandle = get())
+        DetailViewModel(savedStateHandle = handle)
     }
 }
 
 val homeViewModel = module {
     viewModel { (handle: SavedStateHandle) ->
         HomeViewModel(
-            fetchDataUseCase = get(),
-            saveSortTypeUseCase = get(),
-            saveFilterUseCase = get(),
-            fetchFilterUseCase = get(),
-            fetchSortTypeUseCase = get(),
-            state = get()
+            repository = get(),
+            state = handle
         )
     }
 }

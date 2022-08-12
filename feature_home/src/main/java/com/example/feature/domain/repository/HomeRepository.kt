@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.Flow
 
 interface HomeRepository {
 
-    fun fetchUsers(
+    fun fetchData(
         department: String,
         sortType: SortType,
         searchQuery: String,
-        refreshData: Boolean
+        fetchFromRemote: Boolean
     ): Flow<Resource<List<DomainDataSource>>>
 
     fun fetchFilter(): String
