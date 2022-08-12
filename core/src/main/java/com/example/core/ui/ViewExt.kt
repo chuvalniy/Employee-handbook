@@ -1,6 +1,7 @@
 package com.example.core.ui
 
 import androidx.appcompat.widget.SearchView
+import com.google.android.material.tabs.TabLayout
 
 
 inline fun SearchView.onQueryTextChanged(crossinline listener: (String) -> Unit) {
@@ -13,5 +14,17 @@ inline fun SearchView.onQueryTextChanged(crossinline listener: (String) -> Unit)
             listener(p0.orEmpty())
             return true
         }
+    })
+}
+
+inline fun TabLayout.onTabSelected(crossinline listener: (Int) -> Unit) {
+    this.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        override fun onTabSelected(tab: TabLayout.Tab?) {
+            tab?.let { listener.invoke(it.position) }
+        }
+
+        override fun onTabUnselected(tab: TabLayout.Tab?) {}
+
+        override fun onTabReselected(tab: TabLayout.Tab?) {}
     })
 }

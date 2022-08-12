@@ -11,7 +11,7 @@ import com.example.core.utils.convertFromTimestampIntoDate
 import com.example.feature.R
 import com.example.feature.databinding.FragmentDetailBinding
 import com.example.feature.presentation.details.view_model.DetailViewModel
-import com.example.feature.presentation.details.view_model.DetailsState
+import com.example.feature.presentation.details.model.DetailsState
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
 class DetailFragment : BaseFragment<FragmentDetailBinding>() {

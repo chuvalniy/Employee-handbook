@@ -9,6 +9,7 @@ class FetchDataUseCase(
 
     operator fun invoke(department: String,
                         sortType: SortType,
-                        searchQuery: String
-    ) = repository.fetchUsers(department, sortType, searchQuery)
+                        searchQuery: String,
+                        refreshData: Boolean
+    ) = repository.fetchUsers(department, sortType, searchQuery, refreshData)
 }

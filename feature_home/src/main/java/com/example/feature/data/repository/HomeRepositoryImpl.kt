@@ -21,7 +21,8 @@ class HomeRepositoryImpl(
     override fun fetchUsers(
         department: String,
         sortType: SortType,
-        searchQuery: String
+        searchQuery: String,
+        refreshData: Boolean
     ): Flow<Resource<List<DomainDataSource>>> = flow {
         emit(Resource.Loading(isLoading = true))
 

@@ -1,4 +1,4 @@
-package com.example.feature.presentation.details.view_model
+package com.example.feature.presentation.details.model
 
 import com.example.feature.domain.model.DomainDataSource
 

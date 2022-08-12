@@ -68,4 +68,12 @@
         <item name="android:fontFamily">@font/inter_semibold</item>
     </style>
 
+    <style name="AppSearchView" parent="Widget.AppCompat.SearchView">
+        <item name="android:fontFamily">@font/inter_medium</item>
+        <item name="android:textColorHint">@color/defaultPrimary</item>
+        <item name="android:editTextColor">@color/textPrimary</item>
+        <item name="android:textSize">15sp</item>
+        <item name="colorControlActivated">#6534FF</item>
+    </style>
+
 </resources>

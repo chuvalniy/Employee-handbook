@@ -3,6 +3,7 @@ package com.example.feature.presentation.details.view_model
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.feature.domain.model.DomainDataSource
+import com.example.feature.presentation.details.model.DetailsState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 

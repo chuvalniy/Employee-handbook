@@ -1,7 +1,8 @@
-package com.example.feature.presentation.home.view_model
+package com.example.feature.presentation.home.model
 
 import com.example.feature.domain.model.DepartmentList
 import com.example.feature.domain.model.DomainDataSource
+import com.example.feature.presentation.home.view_model.SortType
 
 data class UiState(
     val data: List<DomainDataSource> = emptyList(),

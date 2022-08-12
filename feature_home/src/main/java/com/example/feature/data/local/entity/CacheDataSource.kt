@@ -20,12 +20,30 @@ data class CacheDataSource(
         return DomainDataSource(
             avatarUrl = avatarUrl,
             timestamp = timestamp,
-            department = department,
+            department = department.toDomainDepartment(),
             name = "$firstName $lastName",
             id = id,
             position = position,
             userTag = userTag.lowercase(),
             phone = phone
         )
+    }
+}
+
+fun String.toDomainDepartment(): String {
+    return when (this) {
+        "android" -> "Android"
+        "ios" -> "iOS"
+        "design" -> "Design"
+        "management" -> "Management"
+        "qa" -> "QA"
+        "hr" -> "HR"
+        "pr" -> "PR"
+        "backend" -> "Backend"
+        "frontend" -> "frontend"
+        "back_office" -> "Back ofice"
+        "support" -> "Support"
+        "analytics" -> "Analytics"
+        else -> "All"
     }
 }
