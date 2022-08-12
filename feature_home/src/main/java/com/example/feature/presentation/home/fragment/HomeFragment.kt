@@ -14,10 +14,10 @@ import com.example.feature.R
 import com.example.feature.databinding.FragmentHomeBinding
 import com.example.feature.domain.model.DepartmentList
 import com.example.feature.presentation.home.epoxy.HomeEpoxyController
-import com.example.feature.presentation.home.view_model.HomeViewModel
 import com.example.feature.presentation.home.model.UiEvent
 import com.example.feature.presentation.home.model.UiSideEffect
 import com.example.feature.presentation.home.model.UiState
+import com.example.feature.presentation.home.view_model.HomeViewModel
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -100,6 +100,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun processUiState(state: UiState) {
         epoxyController?.setData(state)
         binding.swipeRefreshLayout.isRefreshing = state.isRefreshing
+        binding.layoutSearchError.isVisible =
+            state.data.isEmpty() && state.searchQuery.isNotEmpty() && !state.isLoading
 //        binding.layoutErrorState.isVisible = state.error != null
 //        binding.epoxyRecyclerView.isVisible = state.error == null
     }

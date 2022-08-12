@@ -14,7 +14,5 @@ val coreModule = module {
                 .diskCacheStrategy(DiskCacheStrategy.DATA)
         )
     }
-
-
 }
 

@@ -1,11 +1,13 @@
 package com.example.feature.presentation.home.view_model
 
 import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.utils.Resource
 import com.example.feature.domain.model.DomainDataSource
 import com.example.feature.domain.use_case.*
+import com.example.feature.presentation.home.model.SortType
 import com.example.feature.presentation.home.model.UiEvent
 import com.example.feature.presentation.home.model.UiSideEffect
 import com.example.feature.presentation.home.model.UiState
@@ -18,7 +20,8 @@ class HomeViewModel(
     private val fetchFilterUseCase: FetchFilterUseCase,
     private val fetchSortTypeUseCase: FetchSortTypeUseCase,
     private val saveFilterUseCase: UpdateFilterUseCase,
-    private val saveSortTypeUseCase: UpdateSortTypeUseCase
+    private val saveSortTypeUseCase: UpdateSortTypeUseCase,
+    private val state: SavedStateHandle
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -30,7 +33,8 @@ class HomeViewModel(
     init {
         _uiState.value = _uiState.value.copy(
             sortType = fetchSortTypeUseCase(),
-            departmentFilter = fetchFilterUseCase()
+            departmentFilter = fetchFilterUseCase(),
+            searchQuery = state.get<String>("query") ?: ""
         )
         fetchData()
     }
@@ -41,8 +45,6 @@ class HomeViewModel(
         searchQuery: String = _uiState.value.searchQuery,
         refreshData: Boolean = _uiState.value.isRefreshing
     ) = viewModelScope.launch {
-        Log.d("TAGTAG", "fetching data")
-
         fetchDataUseCase(department, sortType, searchQuery, refreshData).onEach { result ->
             when (result) {
                 is Resource.Error -> {
@@ -118,8 +120,9 @@ class HomeViewModel(
 
     private fun searchQueryChanged(event: UiEvent.SearchQueryChanged) {
         if (event.query == _uiState.value.searchQuery) return
+        state["search"] = event.query
 
-        _uiState.value = _uiState.value.copy(searchQuery = event.query)
+        _uiState.value = _uiState.value.copy(searchQuery = state.get<String>("search") ?: "")
         viewModelScope.launch { fetchData() }
     }
 

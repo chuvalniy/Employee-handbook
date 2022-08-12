@@ -1,14 +1,13 @@
 package com.example.feature.presentation.home.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.example.feature.databinding.FragmentDialogBinding
 import com.example.feature.presentation.home.view_model.HomeViewModel
-import com.example.feature.presentation.home.view_model.SortType
+import com.example.feature.presentation.home.model.SortType
 import com.example.feature.presentation.home.model.UiEvent
 import com.example.feature.presentation.home.model.UiState
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

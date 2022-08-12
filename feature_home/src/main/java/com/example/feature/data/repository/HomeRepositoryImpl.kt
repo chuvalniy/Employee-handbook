@@ -7,7 +7,7 @@ import com.example.feature.data.local.settings.PreferencesManager
 import com.example.feature.data.remote.HomeApi
 import com.example.feature.domain.model.DomainDataSource
 import com.example.feature.domain.repository.HomeRepository
-import com.example.feature.presentation.home.view_model.SortType
+import com.example.feature.presentation.home.model.SortType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

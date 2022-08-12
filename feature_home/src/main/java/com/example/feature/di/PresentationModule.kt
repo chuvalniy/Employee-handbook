@@ -13,13 +13,14 @@ val detailScreenViewModel = module {
 }
 
 val homeViewModel = module {
-    viewModel {
+    viewModel { (handle: SavedStateHandle) ->
         HomeViewModel(
             fetchDataUseCase = get(),
             saveSortTypeUseCase = get(),
             saveFilterUseCase = get(),
             fetchFilterUseCase = get(),
-            fetchSortTypeUseCase = get()
+            fetchSortTypeUseCase = get(),
+            state = get()
         )
     }
 }
