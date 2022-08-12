@@ -5,7 +5,7 @@ import com.example.feature.domain.model.DomainDataSource
 import com.example.feature.presentation.home.view_model.SortType
 import kotlinx.coroutines.flow.Flow
 
-interface UserRepository {
+interface HomeRepository {
 
     fun fetchUsers(
         department: String,
@@ -14,4 +14,11 @@ interface UserRepository {
         refreshData: Boolean
     ): Flow<Resource<List<DomainDataSource>>>
 
+    fun fetchFilter(): String
+
+    fun fetchSortType(): SortType
+
+    fun updateSortType(sortType: SortType)
+
+    fun updateFilter(departmentFilter: String)
 }

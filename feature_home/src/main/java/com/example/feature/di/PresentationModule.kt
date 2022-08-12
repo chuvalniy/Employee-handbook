@@ -16,6 +16,10 @@ val homeViewModel = module {
     viewModel {
         HomeViewModel(
             fetchDataUseCase = get(),
+            saveSortTypeUseCase = get(),
+            saveFilterUseCase = get(),
+            fetchFilterUseCase = get(),
+            fetchSortTypeUseCase = get()
         )
     }
 }

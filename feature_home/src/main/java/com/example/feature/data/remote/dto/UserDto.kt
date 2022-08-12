@@ -1,7 +1,7 @@
 package com.example.feature.data.remote.dto
 
 import com.example.core.utils.convertFromDateIntoTimestamp
-import com.example.feature.data.local.entity.CacheDataSource
+import com.example.feature.data.local.cache.entity.CacheDataSource
 
 
 data class UserResponse(

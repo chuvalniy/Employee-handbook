@@ -1,6 +1,7 @@
 package com.example.feature.presentation.home.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,8 +57,12 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun processUiState(state: UiState) {
         when (state.sortType) {
-            SortType.BY_NAME -> binding.rbSortByAlphabet.isChecked
-            SortType.BY_DATE -> binding.rbSortByBirthday.isChecked
+            SortType.BY_NAME -> {
+                binding.rbSortByAlphabet.isChecked = true
+            }
+            SortType.BY_DATE -> {
+                binding.rbSortByBirthday.isChecked = true
+            }
         }
     }
 

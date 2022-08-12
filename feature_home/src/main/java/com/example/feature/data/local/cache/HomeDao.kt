@@ -1,12 +1,11 @@
-package com.example.feature.data.local
+package com.example.feature.data.local.cache
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.feature.data.local.entity.CacheDataSource
+import com.example.feature.data.local.cache.entity.CacheDataSource
 import com.example.feature.presentation.home.view_model.SortType
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface HomeDao {

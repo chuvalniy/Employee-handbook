@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.utils.Resource
 import com.example.feature.domain.model.DomainDataSource
-import com.example.feature.domain.use_case.FetchDataUseCase
+import com.example.feature.domain.use_case.*
 import com.example.feature.presentation.home.model.UiEvent
 import com.example.feature.presentation.home.model.UiSideEffect
 import com.example.feature.presentation.home.model.UiState
@@ -15,6 +15,10 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val fetchDataUseCase: FetchDataUseCase,
+    private val fetchFilterUseCase: FetchFilterUseCase,
+    private val fetchSortTypeUseCase: FetchSortTypeUseCase,
+    private val saveFilterUseCase: UpdateFilterUseCase,
+    private val saveSortTypeUseCase: UpdateSortTypeUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -24,6 +28,10 @@ class HomeViewModel(
     val uiEffect get() = _uiEffect.receiveAsFlow()
 
     init {
+        _uiState.value = _uiState.value.copy(
+            sortType = fetchSortTypeUseCase(),
+            departmentFilter = fetchFilterUseCase()
+        )
         fetchData()
     }
 
@@ -33,6 +41,8 @@ class HomeViewModel(
         searchQuery: String = _uiState.value.searchQuery,
         refreshData: Boolean = _uiState.value.isRefreshing
     ) = viewModelScope.launch {
+        Log.d("TAGTAG", "fetching data")
+
         fetchDataUseCase(department, sortType, searchQuery, refreshData).onEach { result ->
             when (result) {
                 is Resource.Error -> {
@@ -71,34 +81,57 @@ class HomeViewModel(
 
     fun onEvent(event: UiEvent) {
         when (event) {
-            is UiEvent.DepartmentSelected -> {
-                if (_uiState.value.departmentFilter == event.department) return
+            is UiEvent.DepartmentSelected -> departmentSelected(event)
 
-                _uiState.value = _uiState.value.copy(departmentFilter = event.department)
-                viewModelScope.launch { fetchData() }
-            }
-            is UiEvent.SearchQueryChanged -> {
-                _uiState.value = _uiState.value.copy(searchQuery = event.query)
-                viewModelScope.launch { fetchData() }
-            }
-            is UiEvent.SortTypeSelected -> {
-                _uiState.value = _uiState.value.copy(sortType = event.sortType)
-                viewModelScope.launch { fetchData() }
-            }
-            is UiEvent.UserItemClicked -> {
-                viewModelScope.launch { _uiEffect.send(UiSideEffect.NavigateToDetails(event.user)) }
-            }
-            is UiEvent.FilterButtonClicked -> {
-                viewModelScope.launch { _uiEffect.send(UiSideEffect.ShowFilterDialog) }
-            }
-            is UiEvent.TryAgainButtonClicked -> {
-                viewModelScope.launch { fetchData() }
-            }
-            is UiEvent.ScreenRefreshed -> {
-                Log.d("TAGTAG", "${_uiState.value.isRefreshing}")
-                _uiState.value = _uiState.value.copy(isRefreshing = true)
-                viewModelScope.launch { fetchData() }
-            }
+            is UiEvent.SearchQueryChanged -> searchQueryChanged(event)
+
+            is UiEvent.SortTypeSelected -> sortTypeSelected(event)
+
+            is UiEvent.UserItemClicked -> userItemClicked(event)
+
+            is UiEvent.FilterButtonClicked -> filterButtonClicked()
+
+            is UiEvent.TryAgainButtonClicked -> tryAgainButtonClicked()
+
+            is UiEvent.ScreenRefreshed -> screenRefreshed()
         }
+    }
+
+    private fun screenRefreshed() {
+        _uiState.value = _uiState.value.copy(isRefreshing = true)
+        viewModelScope.launch { fetchData() }
+    }
+
+    private fun filterButtonClicked() {
+        viewModelScope.launch { _uiEffect.send(UiSideEffect.ShowFilterDialog) }
+    }
+
+    private fun userItemClicked(event: UiEvent.UserItemClicked) {
+        viewModelScope.launch { _uiEffect.send(UiSideEffect.NavigateToDetails(event.user)) }
+    }
+
+    private fun sortTypeSelected(event: UiEvent.SortTypeSelected) {
+        saveSortTypeUseCase(event.sortType)
+        _uiState.value = _uiState.value.copy(sortType = fetchSortTypeUseCase())
+        viewModelScope.launch { fetchData() }
+    }
+
+    private fun searchQueryChanged(event: UiEvent.SearchQueryChanged) {
+        if (event.query == _uiState.value.searchQuery) return
+
+        _uiState.value = _uiState.value.copy(searchQuery = event.query)
+        viewModelScope.launch { fetchData() }
+    }
+
+    private fun departmentSelected(event: UiEvent.DepartmentSelected) {
+        if (_uiState.value.departmentFilter == event.department) return
+        saveFilterUseCase(event.department)
+
+        _uiState.value = _uiState.value.copy(departmentFilter = fetchFilterUseCase())
+        viewModelScope.launch { fetchData() }
+    }
+
+    private fun tryAgainButtonClicked() {
+        viewModelScope.launch { fetchData() }
     }
 }

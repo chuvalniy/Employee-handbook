@@ -2,19 +2,20 @@ package com.example.feature.data.repository
 
 import androidx.room.withTransaction
 import com.example.core.utils.Resource
-import com.example.feature.data.local.HomeDatabase
+import com.example.feature.data.local.cache.HomeDatabase
+import com.example.feature.data.local.settings.PreferencesManager
 import com.example.feature.data.remote.HomeApi
 import com.example.feature.domain.model.DomainDataSource
-import com.example.feature.domain.repository.UserRepository
+import com.example.feature.domain.repository.HomeRepository
 import com.example.feature.presentation.home.view_model.SortType
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class HomeRepositoryImpl(
     private val db: HomeDatabase,
-    private val api: HomeApi
-) : UserRepository {
+    private val api: HomeApi,
+    private val sharedPref: PreferencesManager
+) : HomeRepository {
 
     private val dao = db.dao
 
@@ -54,4 +55,12 @@ class HomeRepositoryImpl(
             emit(Resource.Loading(isLoading = false))
         }
     }
+
+    override fun fetchFilter() = sharedPref.fetchFilter()
+
+    override fun fetchSortType() = sharedPref.fetchSortType()
+
+    override fun updateSortType(sortType: SortType) = sharedPref.updateSortType(sortType)
+
+    override fun updateFilter(departmentFilter: String) = sharedPref.updateFilter(departmentFilter)
 }

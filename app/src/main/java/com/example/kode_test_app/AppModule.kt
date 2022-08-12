@@ -1,4 +1,4 @@
-package com.example.core.di
+package com.example.kode_test_app
 
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy

@@ -2,9 +2,12 @@ package com.example.feature.di
 
 import android.app.Application
 import androidx.room.Room
-import com.example.feature.data.local.HomeDatabase
+import com.example.feature.data.local.cache.HomeDatabase
+import com.example.feature.data.local.settings.PreferencesManager
+import com.example.feature.data.local.settings.PreferencesManagerImpl
 import com.example.feature.data.remote.HomeApi
 import org.koin.android.ext.koin.androidApplication
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -33,6 +36,12 @@ val databaseModule = module {
 
     single { provideUserDatabase(androidApplication()) }
     single { provideUserDao(database = get()) }
+}
+
+val sharedPreferencesModule = module {
+    single <PreferencesManager> {
+        PreferencesManagerImpl(context = androidContext())
+    }
 }
 
 

@@ -1,8 +1,8 @@
-package com.example.feature.data.local
+package com.example.feature.data.local.cache
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.feature.data.local.entity.CacheDataSource
+import com.example.feature.data.local.cache.entity.CacheDataSource
 
 @Database(
     entities = [CacheDataSource::class],

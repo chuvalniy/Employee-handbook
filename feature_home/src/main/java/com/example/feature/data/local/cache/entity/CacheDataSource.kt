@@ -1,4 +1,4 @@
-package com.example.feature.data.local.entity
+package com.example.feature.data.local.cache.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
