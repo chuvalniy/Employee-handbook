@@ -18,32 +18,11 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class ErrorFragment : BaseFragment<FragmentErrorBinding>() {
 
-    private val viewModel by sharedViewModel<HomeViewModel>()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        processUiEvent()
-
-        observeUiEffect()
-    }
-
-    private fun observeUiEffect() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.uiEffect.collect { effect ->
-                when (effect) {
-                    is UiSideEffect.NavigateToHomeScreen -> {
-                        findNavController().navigate(R.id.action_init_error_to_home_)
-                    }
-                    else -> Unit
-                }
-            }
-        }
-    }
-
-    private fun processUiEvent() {
         binding.btnTryAgain.setOnClickListener {
-            viewModel.onEvent(UiEvent.TryAgainButtonClicked)
+            findNavController().navigate(R.id.action_init_error_to_home_)
         }
     }
 

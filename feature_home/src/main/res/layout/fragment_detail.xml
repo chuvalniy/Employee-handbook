@@ -95,7 +95,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ivFavorite" />
 
     <ImageButton
-        android:id="@+id/ivArrowBack"
+        android:id="@+id/btnGoBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"

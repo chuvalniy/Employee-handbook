@@ -20,6 +20,7 @@
         <entry key="..\:/Users/valen/AndroidStudioProjects/KodeTestApp/app/src/main/res/layout/fragment_user_list.xml" value="0.2" />
         <entry key="..\:/Users/valen/AndroidStudioProjects/KodeTestApp/core/src/main/res/drawable/background_error_snackbar.xml" value="0.1205" />
         <entry key="..\:/Users/valen/AndroidStudioProjects/KodeTestApp/core/src/main/res/drawable/background_loading_snackbar.xml" value="0.1205" />
+        <entry key="..\:/Users/valen/AndroidStudioProjects/KodeTestApp/core/src/main/res/drawable/background_shimmer.xml" value="0.1205" />
         <entry key="..\:/Users/valen/AndroidStudioProjects/KodeTestApp/feature_home/src/main/res/drawable/ic_sort.xml" value="0.1545" />
         <entry key="..\:/Users/valen/AndroidStudioProjects/KodeTestApp/feature_home/src/main/res/drawable/searchview_background.xml" value="0.1895" />
         <entry key="..\:/Users/valen/AndroidStudioProjects/KodeTestApp/feature_home/src/main/res/layout/adapter_list_item.xml" value="0.2246376811594203" />
@@ -37,7 +38,7 @@
         <entry key="..\:/Users/valen/AndroidStudioProjects/KodeTestApp/feature_home/src/main/res/layout/model_tab_layout.xml" value="0.21829710144927536" />
         <entry key="..\:/Users/valen/AndroidStudioProjects/KodeTestApp/feature_home/src/main/res/layout/model_user_item.xml" value="0.21829710144927536" />
         <entry key="..\:/Users/valen/AndroidStudioProjects/KodeTestApp/feature_home/src/main/res/layout/shimmer_loading_header.xml" value="0.21829710144927536" />
-        <entry key="..\:/Users/valen/AndroidStudioProjects/KodeTestApp/feature_home/src/main/res/layout/shimmer_user_item.xml" value="0.21829710144927536" />
+        <entry key="..\:/Users/valen/AndroidStudioProjects/KodeTestApp/feature_home/src/main/res/layout/shimmer_user_item.xml" value="0.264" />
         <entry key="..\:/Users/valen/AndroidStudioProjects/KodeTestApp/feature_home/src/main/res/layout/user_item.xml" value="0.21829710144927536" />
       </map>
     </option>

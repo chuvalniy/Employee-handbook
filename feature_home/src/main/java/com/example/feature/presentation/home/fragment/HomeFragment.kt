@@ -1,7 +1,6 @@
 package com.example.feature.presentation.home.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -100,12 +99,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         binding.swipeRefreshLayout.isRefreshing = state.fetchFromRemote && !state.isInit
 
-        val tab = binding.tabLayout.getTabAt(DepartmentList.departmentListDatabase.indexOf(state.departmentFilter))
+        val tab =
+            binding.tabLayout.getTabAt(DepartmentList.departmentListDatabase.indexOf(state.departmentFilter))
         tab?.select()
 
-        if (state.isLoading && !state.isInit) {
-            Log.d("TAGTAG" ,"asdads")
-            snackbar = requireContext().getSnackBar(binding.root, "Loading...")
+        if (state.isLoading && !state.isInit && state.fetchFromRemote) {
+            snackbar =
+                requireContext().getSnackBar(binding.root, getString(R.string.loading_message))
         } else snackbar?.dismiss()
     }
 
@@ -121,12 +121,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         findNavController().navigate(R.id.action_home_to_filter_dialog)
                     }
                     is UiSideEffect.ShowSnackbar -> {
-                        requireContext().showSnackBar(binding.root, "Error")
+                        requireContext().showSnackBar(
+                            binding.root,
+                            effect.message.asString(requireContext())
+                        )
                     }
                     is UiSideEffect.NavigateToErrorScreen -> {
                         findNavController().navigate(R.id.action_home__to_init_error)
                     }
-                    else -> Unit
                 }
             }
         }

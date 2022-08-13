@@ -55,7 +55,7 @@
         <item name="android:textColor">@color/textPrimary</item>
     </style>
 
-    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+    <style name="TabText" parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="android:fontFamily">@font/inter_medium</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/textTetriary</item>
@@ -74,6 +74,11 @@
         <item name="android:editTextColor">@color/textPrimary</item>
         <item name="android:textSize">15sp</item>
         <item name="colorControlActivated">#6534FF</item>
+    </style>
+
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
 
 </resources>

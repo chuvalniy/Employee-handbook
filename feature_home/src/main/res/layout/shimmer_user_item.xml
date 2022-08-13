@@ -1,8 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shimmerLayoutUserItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <include layout="@layout/model_user_item"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/user_item_height">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="@dimen/list_image_size"
+            android:layout_height="@dimen/list_image_size"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="16dp"
+            android:background="@color/shimmerColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
+
+        <TextView
+            android:id="@+id/tvUserName"
+            android:layout_width="@dimen/shimmer_username_text_width"
+            android:layout_height="@dimen/shimmer_username_height"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/background_shimmer"
+            android:text="Shimmer big text"
+            android:textColor="@color/shimmerColor"
+            app:layout_constraintBottom_toBottomOf="@+id/ivAvatar"
+            app:layout_constraintStart_toEndOf="@+id/ivAvatar"
+            app:layout_constraintTop_toTopOf="@+id/ivAvatar"
+            tools:ignore="HardcodedText"
+            tools:text="@tools:sample/lorem" />
+
+
+        <TextView
+            android:id="@+id/tvPosition"
+            android:layout_width="@dimen/shimmer_position_width"
+            android:layout_height="@dimen/shimmer_position_height"
+            android:background="@drawable/background_shimmer"
+            android:text="Shimmer"
+            android:layout_marginTop="@dimen/username_position_separator"
+            android:textColor="@color/shimmerColor"
+            app:layout_constraintStart_toStartOf="@+id/tvUserName"
+            app:layout_constraintTop_toBottomOf="@+id/tvUserName"
+            tools:ignore="HardcodedText"
+            tools:text="@tools:sample/lorem" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </com.facebook.shimmer.ShimmerFrameLayout>
