@@ -11,7 +11,7 @@ interface HomeRepository {
         department: String,
         sortType: SortType,
         searchQuery: String,
-        fetchFromRemote: Boolean
+        fetchFromRemote: Boolean,
     ): Flow<Resource<List<DomainDataSource>>>
 
     fun fetchSortType(): SortType

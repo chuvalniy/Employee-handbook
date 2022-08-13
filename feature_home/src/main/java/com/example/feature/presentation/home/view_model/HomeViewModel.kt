@@ -1,5 +1,6 @@
 package com.example.feature.presentation.home.view_model
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -28,50 +29,79 @@ class HomeViewModel(
     init {
         _uiState.value = _uiState.value.copy(
             sortType = repository.fetchSortType(),
+            isInit = true,
+            fetchFromRemote = true,
             departmentFilter = state.get<String>(KEY_FILTER_SAVED_STATE) ?: DEFAULT_VALUE,
             searchQuery = state.get<String>(KEY_SEARCH_SAVED_STATE) ?: DEFAULT_VALUE
         )
-        fetchData(fetchFromRemote = true)
+        fetchData()
     }
 
     private fun fetchData(
         department: String = _uiState.value.departmentFilter,
         sortType: SortType = _uiState.value.sortType,
         searchQuery: String = _uiState.value.searchQuery,
-        fetchFromRemote: Boolean = false
+        fetchFromRemote: Boolean = _uiState.value.fetchFromRemote
     ) = viewModelScope.launch {
-        repository.fetchData(department, sortType, searchQuery, fetchFromRemote).onEach { result ->
-            when (result) {
-                is Resource.Loading -> {
-                    _uiState.value = _uiState.value.copy(isLoading = result.isLoading)
+        repository.fetchData(department, sortType, searchQuery, fetchFromRemote)
+            .onEach { result ->
+                when (result) {
+                    is Resource.Loading -> {
+                        _uiState.value = _uiState.value.copy(isLoading = result.isLoading)
+                    }
+                    is Resource.Success -> {
+                        processSuccessResult(result)
+                    }
+                    is Resource.Error -> {
+                        processErrorResult(result)
+                    }
                 }
-                is Resource.Success -> {
-                    processSuccessResult(result)
-                }
-                is Resource.Error -> {
-                    processErrorResult(result)
-                }
-            }
-        }.launchIn(this)
+            }.launchIn(this)
     }
 
     private fun processSuccessResult(result: Resource<List<DomainDataSource>>) {
-        _uiState.value = _uiState.value.copy(
-            isLoading = false,
-            isRefreshing = false,
-            data = result.data ?: emptyList(),
-            error = null
-        )
+        if (_uiState.value.isInit) {
+            _uiState.value = _uiState.value.copy(
+                isLoading = false,
+                data = result.data ?: emptyList(),
+                isInit = false,
+                fetchFromRemote = false,
+                error = null
+            )
+        } else if (_uiState.value.fetchFromRemote){
+            _uiState.value = _uiState.value.copy(
+                isLoading = false,
+                fetchFromRemote = false,
+                data = result.data ?: emptyList(),
+                error = null
+            )
+        } else {
+            _uiState.value = _uiState.value.copy(
+                isLoading = false,
+                data = result.data ?: emptyList(),
+                error = null
+            )
+        }
     }
 
     private fun processErrorResult(result: Resource<List<DomainDataSource>>) {
-        _uiState.value = _uiState.value.copy(error = result.error)
-        viewModelScope.launch {
-            _uiEffect.send(
-                UiSideEffect.ShowSnackbar(
-                    _uiState.value.error ?: "" // TODO
-                )
+        if (_uiState.value.isInit) {
+            _uiState.value = _uiState.value.copy(error = result.error)
+
+            viewModelScope.launch { _uiEffect.send(UiSideEffect.NavigateToErrorScreen) }
+        } else if (!_uiState.value.isInit) {
+            _uiState.value = _uiState.value.copy(
+                error = result.error,
+                fetchFromRemote = false
             )
+
+            viewModelScope.launch {
+                _uiEffect.send(
+                    UiSideEffect.ShowSnackbar(
+                        _uiState.value.error ?: "" // TODO
+                    )
+                )
+            }
         }
     }
 
@@ -94,8 +124,8 @@ class HomeViewModel(
     }
 
     private fun screenRefreshed() {
-        _uiState.value = _uiState.value.copy(isRefreshing = true)
-        viewModelScope.launch { fetchData(fetchFromRemote = true) }
+        _uiState.value = _uiState.value.copy(fetchFromRemote = true)
+        fetchData()
     }
 
     private fun filterButtonClicked() {
@@ -109,7 +139,7 @@ class HomeViewModel(
     private fun sortTypeSelected(event: UiEvent.SortTypeSelected) {
         repository.updateSortType(event.sortType)
         _uiState.value = _uiState.value.copy(sortType = repository.fetchSortType())
-        viewModelScope.launch { fetchData() }
+        fetchData()
     }
 
     private fun searchQueryChanged(event: UiEvent.SearchQueryChanged) {
@@ -119,7 +149,7 @@ class HomeViewModel(
         _uiState.value = _uiState.value.copy(
             searchQuery = state.get<String>(KEY_SEARCH_SAVED_STATE) ?: DEFAULT_VALUE
         )
-        viewModelScope.launch { fetchData() }
+        fetchData()
     }
 
     private fun departmentSelected(event: UiEvent.DepartmentSelected) {
@@ -129,11 +159,15 @@ class HomeViewModel(
         _uiState.value = _uiState.value.copy(
             departmentFilter = state.get<String>(KEY_FILTER_SAVED_STATE) ?: DEFAULT_VALUE
         )
-        viewModelScope.launch { fetchData() }
+        fetchData()
     }
 
     private fun tryAgainButtonClicked() {
-        viewModelScope.launch { fetchData() }
+        viewModelScope.launch {
+            _uiEffect.send(UiSideEffect.NavigateToHomeScreen)
+        }
+
+        fetchData()
     }
 
     private companion object {

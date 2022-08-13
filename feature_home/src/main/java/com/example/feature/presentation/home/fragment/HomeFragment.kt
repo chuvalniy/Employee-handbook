@@ -1,23 +1,18 @@
 package com.example.feature.presentation.home.fragment
 
-import android.graphics.PorterDuff
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.core.ui.BaseFragment
-import com.example.core.ui.onQueryTextChanged
-import com.example.core.ui.onTabSelected
+import com.example.core.ui.*
 import com.example.feature.R
 import com.example.feature.databinding.FragmentHomeBinding
 import com.example.feature.domain.model.DepartmentList
 import com.example.feature.presentation.home.epoxy.HomeEpoxyController
-import com.example.feature.presentation.home.model.SortType
 import com.example.feature.presentation.home.model.UiEvent
 import com.example.feature.presentation.home.model.UiSideEffect
 import com.example.feature.presentation.home.model.UiState
@@ -30,6 +25,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val viewModel by sharedViewModel<HomeViewModel>()
 
     private var epoxyController: HomeEpoxyController? = null
+    private var snackbar: Snackbar? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,10 +59,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun processUiEvents() {
         binding.apply {
-            btnTryAgain.setOnClickListener {
-                viewModel.onEvent(UiEvent.TryAgainButtonClicked)
-            }
-
             searchView.onQueryTextChanged {
                 viewModel.onEvent(UiEvent.SearchQueryChanged(it))
             }
@@ -103,14 +95,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun processUiState(state: UiState) {
         epoxyController?.setData(state)
-        binding.swipeRefreshLayout.isRefreshing = state.isRefreshing
         binding.layoutSearchError.isVisible =
             !state.isLoading && state.data.isEmpty() && state.searchQuery.isNotEmpty()
 
+        binding.swipeRefreshLayout.isRefreshing = state.fetchFromRemote && !state.isInit
+
         val tab = binding.tabLayout.getTabAt(DepartmentList.departmentListDatabase.indexOf(state.departmentFilter))
         tab?.select()
-//        binding.layoutErrorState.isVisible = state.error != null
-//        binding.epoxyRecyclerView.isVisible = state.error == null
+
+        if (state.isLoading && !state.isInit) {
+            Log.d("TAGTAG" ,"asdads")
+            snackbar = requireContext().getSnackBar(binding.root, "Loading...")
+        } else snackbar?.dismiss()
     }
 
     private fun observeUiEffects() {
@@ -125,8 +121,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         findNavController().navigate(R.id.action_home_to_filter_dialog)
                     }
                     is UiSideEffect.ShowSnackbar -> {
-                        Snackbar.make(requireView(), effect.message, Snackbar.LENGTH_LONG).show()
+                        requireContext().showSnackBar(binding.root, "Error")
                     }
+                    is UiSideEffect.NavigateToErrorScreen -> {
+                        findNavController().navigate(R.id.action_home__to_init_error)
+                    }
+                    else -> Unit
                 }
             }
         }
@@ -138,4 +138,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         container: ViewGroup?
     ) = FragmentHomeBinding.inflate(inflater, container, false)
 
+    override fun onDestroy() {
+        super.onDestroy()
+        snackbar = null
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.feature.presentation.home.epoxy
 
+import android.util.Log
 import com.airbnb.epoxy.TypedEpoxyController
 import com.example.feature.domain.model.DomainDataSource
 import com.example.feature.presentation.home.epoxy.model.HomeLoadingHeaderModel
@@ -12,7 +13,7 @@ class HomeEpoxyController(
 ) : TypedEpoxyController<UiState>() {
 
     override fun buildModels(state: UiState?) {
-        if (state?.isLoading == true && !state.isRefreshing) {
+        if (state?.isLoading == true && state.isInit) {
             HomeLoadingHeaderModel()
                 .id("shimmer_loading_header")
                 .addTo(this)

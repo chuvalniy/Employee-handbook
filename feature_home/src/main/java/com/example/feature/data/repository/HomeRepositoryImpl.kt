@@ -24,17 +24,14 @@ class HomeRepositoryImpl(
         department: String,
         sortType: SortType,
         searchQuery: String,
-        fetchFromRemote: Boolean
+        fetchFromRemote: Boolean,
     ): Flow<Resource<List<DomainDataSource>>> {
         return flow {
             emit(Resource.Loading(isLoading = true))
 
-            val cache = dao.fetchCache(department, sortType, searchQuery)
-
-            emit(Resource.Success(cache.map { it.toDomainDataSource() }))
-
-
             if (!fetchFromRemote) {
+                val cache = dao.fetchCache(department, sortType, searchQuery)
+                emit(Resource.Success(cache.map { it.toDomainDataSource() }))
                 emit(Resource.Loading(isLoading = false))
                 return@flow
             }
@@ -62,11 +59,9 @@ class HomeRepositoryImpl(
         }
     }
 
-    override fun fetchFilter() = sharedPref.fetchFilter()
 
     override fun fetchSortType() = sharedPref.fetchSortType()
 
     override fun updateSortType(sortType: SortType) = sharedPref.updateSortType(sortType)
 
-    override fun updateFilter(departmentFilter: String) = sharedPref.updateFilter(departmentFilter)
 }
