@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -106,6 +107,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.layoutSearchError.isVisible =
             !state.isLoading && state.data.isEmpty() && state.searchQuery.isNotEmpty()
 
+        val tab = binding.tabLayout.getTabAt(DepartmentList.departmentListDatabase.indexOf(state.departmentFilter))
+        tab?.select()
 //        binding.layoutErrorState.isVisible = state.error != null
 //        binding.epoxyRecyclerView.isVisible = state.error == null
     }

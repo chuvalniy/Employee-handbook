@@ -14,11 +14,7 @@ interface HomeRepository {
         fetchFromRemote: Boolean
     ): Flow<Resource<List<DomainDataSource>>>
 
-    fun fetchFilter(): String
-
     fun fetchSortType(): SortType
 
     fun updateSortType(sortType: SortType)
-
-    fun updateFilter(departmentFilter: String)
 }

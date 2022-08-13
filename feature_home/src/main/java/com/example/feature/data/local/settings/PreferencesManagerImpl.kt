@@ -17,14 +17,6 @@ class PreferencesManagerImpl(
         sharedPref.edit().putString(KEY_SORT_TYPE, sortType.name).apply()
     }
 
-    override fun updateFilter(filter: String) {
-        sharedPref.edit().putString(KEY_FILTER, filter).apply()
-    }
-
-    override fun fetchFilter(): String {
-        return sharedPref.getString(KEY_FILTER, "") ?: ""
-    }
-
     override fun fetchSortType(): SortType {
         return SortType.valueOf(
             sharedPref.getString(KEY_SORT_TYPE, SortType.BY_NAME.name) ?: SortType.BY_NAME.name

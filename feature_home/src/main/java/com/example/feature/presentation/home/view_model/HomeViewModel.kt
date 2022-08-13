@@ -28,7 +28,7 @@ class HomeViewModel(
     init {
         _uiState.value = _uiState.value.copy(
             sortType = repository.fetchSortType(),
-            departmentFilter = repository.fetchFilter(),
+            departmentFilter = state.get<String>(KEY_FILTER_SAVED_STATE) ?: DEFAULT_VALUE,
             searchQuery = state.get<String>(KEY_SEARCH_SAVED_STATE) ?: DEFAULT_VALUE
         )
         fetchData(fetchFromRemote = true)
@@ -69,7 +69,7 @@ class HomeViewModel(
         viewModelScope.launch {
             _uiEffect.send(
                 UiSideEffect.ShowSnackbar(
-                    _uiState.value.error ?: ""
+                    _uiState.value.error ?: "" // TODO
                 )
             )
         }
@@ -124,9 +124,11 @@ class HomeViewModel(
 
     private fun departmentSelected(event: UiEvent.DepartmentSelected) {
         if (_uiState.value.departmentFilter == event.department) return
-        repository.updateFilter(event.department)
+        state[KEY_FILTER_SAVED_STATE] = event.department
 
-        _uiState.value = _uiState.value.copy(departmentFilter = repository.fetchFilter())
+        _uiState.value = _uiState.value.copy(
+            departmentFilter = state.get<String>(KEY_FILTER_SAVED_STATE) ?: DEFAULT_VALUE
+        )
         viewModelScope.launch { fetchData() }
     }
 
@@ -136,6 +138,7 @@ class HomeViewModel(
 
     private companion object {
         const val KEY_SEARCH_SAVED_STATE = "search"
+        const val KEY_FILTER_SAVED_STATE = "filter"
         const val DEFAULT_VALUE = ""
     }
 }
