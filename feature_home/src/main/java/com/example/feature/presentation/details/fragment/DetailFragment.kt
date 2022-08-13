@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.core.ui.BaseFragment
-import com.example.core.utils.ConvertType
-import com.example.core.utils.convertFromTimestampIntoDate
 import com.example.feature.R
 import com.example.feature.databinding.FragmentDetailBinding
 import com.example.feature.presentation.details.model.DetailsState
@@ -33,6 +31,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
         processUiEvent()
     }
+
     private fun observeUiEffect() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.uiEffect.collect { effect ->
@@ -62,15 +61,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private fun processUiState(state: DetailsState) {
         with(binding) {
             tvUserName.text = state.data.name
-            tvAge.text = getString(
-                R.string.text_view_age, convertFromTimestampIntoDate(
-                    state.data.timestamp, ConvertType.NUMBER_OF_YEARS
-                )
-            )
-            tvBirthday.text = convertFromTimestampIntoDate(
-                state.data.timestamp,
-                ConvertType.FULL_DATE
-            )
+            tvAge.text = getString(R.string.text_view_age, state.data.age)
+            tvBirthday.text = state.data.birthdayFull
             tvPhoneNumber.text = state.data.phone
             tvUserTag.text = state.data.userTag
             tvPosition.text = state.data.position

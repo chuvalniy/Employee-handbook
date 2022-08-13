@@ -30,7 +30,9 @@ val databaseModule = module {
         application,
         HomeDatabase::class.java,
         "user_db"
-    ).build()
+    )
+        .fallbackToDestructiveMigration()
+        .build()
 
     fun provideUserDao(database: HomeDatabase) = database.dao
 
@@ -39,7 +41,7 @@ val databaseModule = module {
 }
 
 val sharedPreferencesModule = module {
-    single <PreferencesManager> {
+    single<PreferencesManager> {
         PreferencesManagerImpl(context = androidContext())
     }
 }

@@ -5,7 +5,9 @@ import com.example.feature.domain.model.DomainDataSource
 data class DetailsState(
     val data: DomainDataSource = DomainDataSource(
         avatarUrl = "",
-        timestamp = 0L,
+        age = "",
+        birthdayDay = "",
+        birthdayFull = "",
         department = "",
         name = "",
         id = "",

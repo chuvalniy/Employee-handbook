@@ -20,7 +20,7 @@ interface HomeDao {
                 department = department,
                 searchQuery = searchQuery
             )
-            SortType.BY_DATE -> getUsersSortedByDate(
+            SortType.BY_DATE -> getUsersSortedByBirthday(
                 department = department,
                 searchQuery = searchQuery
             )
@@ -29,9 +29,8 @@ interface HomeDao {
     @Query("SELECT * FROM user_db WHERE department LIKE '%' || :department || '%' AND firstName lIKE '%' || :searchQuery || '%' ORDER BY firstName ASC")
     suspend fun getUsersSortedByName(department: String, searchQuery: String): List<CacheDataSource>
 
-    // TODO: replace :firstname by :date for SortType
-    @Query("SELECT * FROM user_db WHERE department LIKE '%' || :department || '%' AND firstName lIKE '%' || :searchQuery || '%' ORDER BY timestamp ASC")
-    suspend fun getUsersSortedByDate(department: String, searchQuery: String): List<CacheDataSource>
+    @Query("SELECT * FROM user_db WHERE department LIKE '%' || :department || '%' AND firstName lIKE '%' || :searchQuery || '%' ORDER BY SUBSTR(DATE('NOW'), 6) > SUBSTR(birthday, 6), SUBSTR(birthday, 6)")
+    suspend fun getUsersSortedByBirthday(department: String, searchQuery: String): List<CacheDataSource>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCache(users: List<CacheDataSource>)

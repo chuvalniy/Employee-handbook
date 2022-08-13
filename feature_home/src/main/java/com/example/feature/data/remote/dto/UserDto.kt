@@ -1,6 +1,5 @@
 package com.example.feature.data.remote.dto
 
-import com.example.core.utils.convertFromDateIntoTimestamp
 import com.example.feature.data.local.cache.entity.CacheDataSource
 
 
@@ -22,7 +21,7 @@ data class UserDto(
     fun toCacheDataSource(): CacheDataSource {
         return CacheDataSource(
             avatarUrl = avatarUrl,
-            timestamp = convertFromDateIntoTimestamp(birthday),
+            birthday = birthday,
             department = department,
             firstName = firstName,
             id = id,
