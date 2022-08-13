@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.feature.data.local.cache.entity.CacheDataSource
-import com.example.feature.presentation.home.view_model.SortType
+import com.example.feature.presentation.home.model.SortType
 
 @Dao
 interface HomeDao {

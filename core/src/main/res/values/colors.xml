@@ -14,4 +14,7 @@
     <color name="textSecondary">#FF55555C</color>
     <color name="textTetriary">#97979B</color>
     <color name="defaultPrimary">#FFC3C3C6</color>
+    <color name="activePrimary">#6534FF</color>
+    <color name="errorPrimary">#F44336</color>
+
 </resources>

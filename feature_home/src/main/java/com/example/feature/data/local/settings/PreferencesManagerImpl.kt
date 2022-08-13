@@ -1,7 +1,7 @@
 package com.example.feature.data.local.settings
 
 import android.content.Context
-import com.example.feature.presentation.home.view_model.SortType
+import com.example.feature.presentation.home.model.SortType
 
 private const val SHARED_PREFS_NAME = "user_settings"
 private const val KEY_FILTER = "department_filter"
@@ -15,14 +15,6 @@ class PreferencesManagerImpl(
 
     override fun updateSortType(sortType: SortType) {
         sharedPref.edit().putString(KEY_SORT_TYPE, sortType.name).apply()
-    }
-
-    override fun updateFilter(filter: String) {
-        sharedPref.edit().putString(KEY_FILTER, filter).apply()
-    }
-
-    override fun fetchFilter(): String {
-        return sharedPref.getString(KEY_FILTER, "") ?: ""
     }
 
     override fun fetchSortType(): SortType {

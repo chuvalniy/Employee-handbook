@@ -1,11 +1,13 @@
 package com.example.feature.presentation.home.view_model
 
 import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.utils.Resource
 import com.example.feature.domain.model.DomainDataSource
-import com.example.feature.domain.use_case.*
+import com.example.feature.domain.repository.HomeRepository
+import com.example.feature.presentation.home.model.SortType
 import com.example.feature.presentation.home.model.UiEvent
 import com.example.feature.presentation.home.model.UiSideEffect
 import com.example.feature.presentation.home.model.UiState
@@ -14,11 +16,8 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val fetchDataUseCase: FetchDataUseCase,
-    private val fetchFilterUseCase: FetchFilterUseCase,
-    private val fetchSortTypeUseCase: FetchSortTypeUseCase,
-    private val saveFilterUseCase: UpdateFilterUseCase,
-    private val saveSortTypeUseCase: UpdateSortTypeUseCase
+    private val repository: HomeRepository,
+    private val state: SavedStateHandle
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -29,8 +28,11 @@ class HomeViewModel(
 
     init {
         _uiState.value = _uiState.value.copy(
-            sortType = fetchSortTypeUseCase(),
-            departmentFilter = fetchFilterUseCase()
+            sortType = repository.fetchSortType(),
+            isInit = true,
+            fetchFromRemote = true,
+            departmentFilter = state.get<String>(KEY_FILTER_SAVED_STATE) ?: DEFAULT_VALUE,
+            searchQuery = state.get<String>(KEY_SEARCH_SAVED_STATE) ?: DEFAULT_VALUE
         )
         fetchData()
     }
@@ -39,45 +41,69 @@ class HomeViewModel(
         department: String = _uiState.value.departmentFilter,
         sortType: SortType = _uiState.value.sortType,
         searchQuery: String = _uiState.value.searchQuery,
-        refreshData: Boolean = _uiState.value.isRefreshing
+        fetchFromRemote: Boolean = _uiState.value.fetchFromRemote
     ) = viewModelScope.launch {
-        Log.d("TAGTAG", "fetching data")
-
-        fetchDataUseCase(department, sortType, searchQuery, refreshData).onEach { result ->
-            when (result) {
-                is Resource.Error -> {
-                    processErrorResult(result)
+        repository.fetchData(department, sortType, searchQuery, fetchFromRemote)
+            .onEach { result ->
+                when (result) {
+                    is Resource.Loading -> {
+                        _uiState.value = _uiState.value.copy(isLoading = result.isLoading)
+                    }
+                    is Resource.Success -> {
+                        processSuccessResult(result)
+                    }
+                    is Resource.Error -> {
+                        processErrorResult(result)
+                    }
                 }
-                is Resource.Loading -> {
-                    _uiState.value = _uiState.value.copy(isLoading = result.isLoading)
-                }
-                is Resource.Success -> {
-                    processSuccessResult(result)
-                }
-            }
-        }.launchIn(this)
+            }.launchIn(this)
     }
 
     private fun processSuccessResult(result: Resource<List<DomainDataSource>>) {
-        _uiState.value = _uiState.value.copy(
-            isLoading = false,
-            isRefreshing = false,
-            data = result.data ?: emptyList(),
-            error = null
-        )
-    }
-
-    private fun processErrorResult(result: Resource<List<DomainDataSource>>) {
-        _uiState.value = _uiState.value.copy(error = result.error)
-        viewModelScope.launch {
-            _uiEffect.send(
-                UiSideEffect.ShowSnackbar(
-                    _uiState.value.error ?: ""
-                )
+        if (_uiState.value.isInit) {
+            _uiState.value = _uiState.value.copy(
+                isLoading = false,
+                data = result.data ?: emptyList(),
+                isInit = false,
+                fetchFromRemote = false,
+                error = null
+            )
+        } else if (_uiState.value.fetchFromRemote){
+            _uiState.value = _uiState.value.copy(
+                isLoading = false,
+                fetchFromRemote = false,
+                data = result.data ?: emptyList(),
+                error = null
+            )
+        } else {
+            _uiState.value = _uiState.value.copy(
+                isLoading = false,
+                data = result.data ?: emptyList(),
+                error = null
             )
         }
     }
 
+    private fun processErrorResult(result: Resource<List<DomainDataSource>>) {
+        if (_uiState.value.isInit) {
+            _uiState.value = _uiState.value.copy(error = result.error)
+
+            viewModelScope.launch { _uiEffect.send(UiSideEffect.NavigateToErrorScreen) }
+        } else if (!_uiState.value.isInit) {
+            _uiState.value = _uiState.value.copy(
+                error = result.error,
+                fetchFromRemote = false
+            )
+
+            viewModelScope.launch {
+                _uiEffect.send(
+                    UiSideEffect.ShowSnackbar(
+                        _uiState.value.error ?: "" // TODO
+                    )
+                )
+            }
+        }
+    }
 
     fun onEvent(event: UiEvent) {
         when (event) {
@@ -98,8 +124,8 @@ class HomeViewModel(
     }
 
     private fun screenRefreshed() {
-        _uiState.value = _uiState.value.copy(isRefreshing = true)
-        viewModelScope.launch { fetchData() }
+        _uiState.value = _uiState.value.copy(fetchFromRemote = true)
+        fetchData()
     }
 
     private fun filterButtonClicked() {
@@ -111,27 +137,42 @@ class HomeViewModel(
     }
 
     private fun sortTypeSelected(event: UiEvent.SortTypeSelected) {
-        saveSortTypeUseCase(event.sortType)
-        _uiState.value = _uiState.value.copy(sortType = fetchSortTypeUseCase())
-        viewModelScope.launch { fetchData() }
+        repository.updateSortType(event.sortType)
+        _uiState.value = _uiState.value.copy(sortType = repository.fetchSortType())
+        fetchData()
     }
 
     private fun searchQueryChanged(event: UiEvent.SearchQueryChanged) {
         if (event.query == _uiState.value.searchQuery) return
+        state[KEY_SEARCH_SAVED_STATE] = event.query
 
-        _uiState.value = _uiState.value.copy(searchQuery = event.query)
-        viewModelScope.launch { fetchData() }
+        _uiState.value = _uiState.value.copy(
+            searchQuery = state.get<String>(KEY_SEARCH_SAVED_STATE) ?: DEFAULT_VALUE
+        )
+        fetchData()
     }
 
     private fun departmentSelected(event: UiEvent.DepartmentSelected) {
         if (_uiState.value.departmentFilter == event.department) return
-        saveFilterUseCase(event.department)
+        state[KEY_FILTER_SAVED_STATE] = event.department
 
-        _uiState.value = _uiState.value.copy(departmentFilter = fetchFilterUseCase())
-        viewModelScope.launch { fetchData() }
+        _uiState.value = _uiState.value.copy(
+            departmentFilter = state.get<String>(KEY_FILTER_SAVED_STATE) ?: DEFAULT_VALUE
+        )
+        fetchData()
     }
 
     private fun tryAgainButtonClicked() {
-        viewModelScope.launch { fetchData() }
+        viewModelScope.launch {
+            _uiEffect.send(UiSideEffect.NavigateToHomeScreen)
+        }
+
+        fetchData()
+    }
+
+    private companion object {
+        const val KEY_SEARCH_SAVED_STATE = "search"
+        const val KEY_FILTER_SAVED_STATE = "filter"
+        const val DEFAULT_VALUE = ""
     }
 }
