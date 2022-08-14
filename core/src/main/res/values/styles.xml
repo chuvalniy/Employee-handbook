@@ -46,7 +46,7 @@
     <style name="Title2Semibold">
         <item name="android:fontFamily">@font/inter_semibold</item>
         <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@color/textSecondary</item>
+        <item name="android:textColor">@color/textPrimary</item>
     </style>
 
     <style name="Title3Semibold">
