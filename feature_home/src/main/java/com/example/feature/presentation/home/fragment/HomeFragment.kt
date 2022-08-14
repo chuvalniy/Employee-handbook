@@ -94,6 +94,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun processUiState(state: UiState) {
         epoxyController?.setData(state)
+        
         binding.layoutSearchError.isVisible =
             !state.isLoading && state.data.isEmpty() && state.searchQuery.isNotEmpty()
 

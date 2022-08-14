@@ -1,7 +1,9 @@
 package com.example.core.utils
 
-sealed class Resource<T>(val data: T? = null, val error: Exception? = null) {
+import com.example.core.ui.UiText
+
+sealed class Resource<T>(val data: T? = null, val error: UiText? = null) {
     class Loading<T>(val isLoading: Boolean = true, ) : Resource<T>(null)
     class Success<T>(data: T?) : Resource<T>(data)
-    class Error<T>(data: T? = null, error: Exception?) : Resource<T>(data, error)
+    class Error<T>(data: T? = null, error: UiText?) : Resource<T>(data, error)
 }

@@ -4,7 +4,6 @@ import android.content.Context
 import com.example.feature.presentation.home.model.SortType
 
 private const val SHARED_PREFS_NAME = "user_settings"
-private const val KEY_FILTER = "department_filter"
 private const val KEY_SORT_TYPE = "sort_type"
 
 class PreferencesManagerImpl(

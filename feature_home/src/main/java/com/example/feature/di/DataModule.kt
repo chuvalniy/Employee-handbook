@@ -29,7 +29,7 @@ val databaseModule = module {
     fun provideUserDatabase(application: Application) = Room.databaseBuilder(
         application,
         HomeDatabase::class.java,
-        "user_db"
+        HomeDatabase.DATABASE_NAME
     )
         .fallbackToDestructiveMigration()
         .build()

@@ -61,7 +61,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private fun processUiState(state: DetailsState) {
         with(binding) {
             tvUserName.text = state.data.name
-            tvAge.text = getString(R.string.text_view_age, state.data.age)
+            tvAge.text = getString(R.string.age, state.data.age)
             tvBirthday.text = state.data.birthdayFull
             tvPhoneNumber.text = state.data.phone
             tvUserTag.text = state.data.userTag

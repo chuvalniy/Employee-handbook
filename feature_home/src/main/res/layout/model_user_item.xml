@@ -4,83 +4,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cvUserItem"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/item_height"
     android:elevation="0dp"
     app:cardElevation="0dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="12dp">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            
             android:id="@+id/ivAvatar"
             android:layout_width="@dimen/list_image_size"
             android:layout_height="@dimen/list_image_size"
             android:layout_marginStart="@dimen/layout_margin"
-            android:src="@drawable/plug" />
+            android:layout_marginLeft="@dimen/layout_margin"
+            android:src="@drawable/plug"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-        <FrameLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvUserName"
+            style="@style/HeadlineMedium"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_marginLeft="@dimen/layout_margin"
+            app:layout_constraintBottom_toTopOf="@+id/tvDepartment"
+            app:layout_constraintLeft_toRightOf="@id/ivAvatar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Alexey Minogarov" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/layout_margin"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/username_position_separator"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tvUserName"
-                        style="@style/HeadlineMedium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="Alexey Minogarov" />
+        <TextView
+            android:id="@+id/tvUserTag"
+            style="@style/SubheadMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/tag_margin_start"
+            app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
+            app:layout_constraintStart_toEndOf="@+id/tvUserName"
+            tools:text="mi" />
 
 
-                    <TextView
-                        android:id="@+id/tvUserTag"
-                        style="@style/SubheadMedium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        tools:text="mi" />
+        <TextView
+            android:id="@+id/tvDepartment"
+            style="@style/CaptionRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/department_margin_top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvUserName"
+            app:layout_constraintTop_toBottomOf="@+id/tvUserName"
+            tools:text="Analyst" />
 
-                </LinearLayout>
+        <TextView
+            android:id="@+id/tvBirthday"
+            style="@style/Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/layout_margin"
+            app:layout_constraintBottom_toBottomOf="@+id/ivAvatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivAvatar"
+            tools:text="5 June" />
 
-                <TextView
-                    android:id="@+id/tvDepartment"
-                    style="@style/CaptionRegular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="Analyst" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tvBirthday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center"
-                android:layout_marginEnd="@dimen/birthday_end_margin"
-                style="@style/Regular"
-                tools:text="5 June" />
-
-
-        </FrameLayout>
-
-
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

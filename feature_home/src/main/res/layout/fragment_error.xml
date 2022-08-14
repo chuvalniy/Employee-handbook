@@ -1,21 +1,23 @@
-<androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/layoutErrorState"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutErrorState"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    app:layout_constraintTop_toTopOf="parent">
 
     <ImageView
         android:id="@+id/ivUfo"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="@dimen/error_icon_size"
+        android:layout_height="@dimen/error_icon_size"
+        android:layout_marginBottom="@dimen/error_icon_margin_bottom"
+        android:contentDescription="@string/ufo_icon"
         android:src="@drawable/ic_ufo"
         app:layout_constraintBottom_toTopOf="@+id/tvErrorTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
@@ -25,11 +27,9 @@
         style="@style/Title3Semibold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Someone broke everything"
+        android:text="@string/someone_broke_everything"
         app:layout_constraintBottom_toTopOf="@+id/tvErrorHelper"
         app:layout_constraintEnd_toEndOf="@+id/ivUfo"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/ivUfo"
         app:layout_constraintTop_toBottomOf="@+id/ivUfo" />
 
@@ -38,24 +38,23 @@
         style="@style/HeadlineRegular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="We'll try to fix it quickly"
+        android:layout_marginTop="@dimen/error_helper_text_margin_top"
+        android:text="@string/we_ll_try_to_fix_it_quickly"
         app:layout_constraintBottom_toTopOf="@+id/btnTryAgain"
         app:layout_constraintEnd_toEndOf="@+id/tvErrorTitle"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/tvErrorTitle"
-        app:layout_constraintTop_toBottomOf="@+id/tvErrorTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvErrorTitle"
+        tools:ignore="TextContrastCheck" />
 
     <Button
         android:id="@+id/btnTryAgain"
         style="@style/TextButtonHelper"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Try again"
+        android:contentDescription="@string/try_again"
+        android:text="@string/try_again"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tvErrorHelper"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/tvErrorHelper"
         app:layout_constraintTop_toBottomOf="@+id/tvErrorHelper" />
 

@@ -11,4 +11,8 @@ import com.example.feature.data.local.cache.entity.CacheDataSource
 abstract class HomeDatabase : RoomDatabase() {
 
     abstract val dao: HomeDao
+
+    companion object {
+        const val DATABASE_NAME = "user_db"
+    }
 }

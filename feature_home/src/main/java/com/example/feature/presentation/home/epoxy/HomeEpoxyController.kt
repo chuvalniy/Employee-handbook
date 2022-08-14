@@ -13,7 +13,7 @@ class HomeEpoxyController(
 
     override fun buildModels(state: UiState?) {
         if (state?.isLoading == true && state.isInit) {
-            HomeLoadingHeaderModel()
+            HomeLoadingHeaderModel(state.departmentFilter)
                 .id("shimmer_loading_header")
                 .addTo(this)
 

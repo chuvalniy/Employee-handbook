@@ -88,24 +88,13 @@ class HomeViewModel(
     }
 
     private fun processErrorResult(result: Resource<List<DomainDataSource>>) {
-        val errorMessage = when (result.error) {
-            is IOException -> {
-                UiText.StringResource(R.string.api_error)
-            }
-            is HttpException -> {
-                UiText.StringResource(R.string.internet_connection_error)
-            }
-            else -> {
-                UiText.StringResource(R.string.unexpected_error)
-            }
-        }
         if (_uiState.value.isInit) {
-            _uiState.value = _uiState.value.copy(error = errorMessage)
+            _uiState.value = _uiState.value.copy(error = result.error)
 
             viewModelScope.launch { _uiEffect.send(UiSideEffect.NavigateToErrorScreen) }
         } else if (!_uiState.value.isInit) {
             _uiState.value = _uiState.value.copy(
-                error = errorMessage,
+                error = result.error,
                 fetchFromRemote = false
             )
 
