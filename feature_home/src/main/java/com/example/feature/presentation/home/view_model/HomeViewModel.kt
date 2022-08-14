@@ -1,10 +1,12 @@
 package com.example.feature.presentation.home.view_model
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.load.HttpException
+import com.example.core.ui.UiText
 import com.example.core.utils.Resource
+import com.example.feature.R
 import com.example.feature.domain.model.DomainDataSource
 import com.example.feature.domain.repository.HomeRepository
 import com.example.feature.presentation.home.model.SortType
@@ -14,6 +16,7 @@ import com.example.feature.presentation.home.model.UiState
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.io.IOException
 
 class HomeViewModel(
     private val repository: HomeRepository,
@@ -68,7 +71,7 @@ class HomeViewModel(
                 fetchFromRemote = false,
                 error = null
             )
-        } else if (_uiState.value.fetchFromRemote){
+        } else if (_uiState.value.fetchFromRemote) {
             _uiState.value = _uiState.value.copy(
                 isLoading = false,
                 fetchFromRemote = false,
@@ -85,20 +88,31 @@ class HomeViewModel(
     }
 
     private fun processErrorResult(result: Resource<List<DomainDataSource>>) {
+        val errorMessage = when (result.error) {
+            is IOException -> {
+                UiText.StringResource(R.string.api_error)
+            }
+            is HttpException -> {
+                UiText.StringResource(R.string.internet_connection_error)
+            }
+            else -> {
+                UiText.StringResource(R.string.unexpected_error)
+            }
+        }
         if (_uiState.value.isInit) {
-            _uiState.value = _uiState.value.copy(error = result.error)
+            _uiState.value = _uiState.value.copy(error = errorMessage)
 
             viewModelScope.launch { _uiEffect.send(UiSideEffect.NavigateToErrorScreen) }
         } else if (!_uiState.value.isInit) {
             _uiState.value = _uiState.value.copy(
-                error = result.error,
+                error = errorMessage,
                 fetchFromRemote = false
             )
 
             viewModelScope.launch {
                 _uiEffect.send(
                     UiSideEffect.ShowSnackbar(
-                        _uiState.value.error ?: "" // TODO
+                        _uiState.value.error ?: UiText.StringResource(R.string.unexpected_error)
                     )
                 )
             }
@@ -116,8 +130,6 @@ class HomeViewModel(
             is UiEvent.UserItemClicked -> userItemClicked(event)
 
             is UiEvent.FilterButtonClicked -> filterButtonClicked()
-
-            is UiEvent.TryAgainButtonClicked -> tryAgainButtonClicked()
 
             is UiEvent.ScreenRefreshed -> screenRefreshed()
         }
@@ -162,13 +174,13 @@ class HomeViewModel(
         fetchData()
     }
 
-    private fun tryAgainButtonClicked() {
-        viewModelScope.launch {
-            _uiEffect.send(UiSideEffect.NavigateToHomeScreen)
-        }
-
-        fetchData()
-    }
+//    private fun tryAgainButtonClicked() {
+//        viewModelScope.launch {
+//            _uiEffect.send(UiSideEffect.NavigateToHomeScreen)
+//        }
+//
+//        fetchData()
+//    }
 
     private companion object {
         const val KEY_SEARCH_SAVED_STATE = "search"

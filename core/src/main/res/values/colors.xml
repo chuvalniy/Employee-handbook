@@ -17,4 +17,5 @@
     <color name="activePrimary">#6534FF</color>
     <color name="errorPrimary">#F44336</color>
 
+    <color name="shimmerColor">#DDDDDD</color>
 </resources>

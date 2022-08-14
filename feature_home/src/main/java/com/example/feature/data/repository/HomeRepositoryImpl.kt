@@ -2,6 +2,7 @@ package com.example.feature.data.repository
 
 import android.util.Log
 import androidx.room.withTransaction
+import com.bumptech.glide.load.HttpException
 import com.example.core.utils.Resource
 import com.example.feature.data.local.cache.HomeDatabase
 import com.example.feature.data.local.settings.PreferencesManager
@@ -11,6 +12,7 @@ import com.example.feature.domain.repository.HomeRepository
 import com.example.feature.presentation.home.model.SortType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.io.IOException
 
 class HomeRepositoryImpl(
     private val db: HomeDatabase,
@@ -38,8 +40,11 @@ class HomeRepositoryImpl(
 
             val response = try {
                 api.fetchCloudDataSource()
-            } catch (e: Exception) {
-                emit(Resource.Error(error = e.message))
+            } catch (e: HttpException) {
+                emit(Resource.Error(error = e))
+                null
+            } catch (e: IOException) {
+                emit(Resource.Error(error = e))
                 null
             }
 

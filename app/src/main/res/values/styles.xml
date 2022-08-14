@@ -1,51 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="HeadlineMedium">
-        <item name="android:fontFamily">@font/inter_regular</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/textPrimary</item>
+    <style name="Widget.App.SnackbarTextView" parent="Widget.MaterialComponents.Snackbar.TextView">
+        <item name="android:textAppearance">@style/SnackbarTextAppearance</item>
     </style>
 
-    <style name="CaptionRegular">
-        <item name="android:fontFamily">@font/inter_regular</item>
-        <item name="android:textSize">13sp</item>
-        <item name="android:textColor">@color/textSecondary</item>
-    </style>
-
-    <style name="SubheadMedium">
-        <item name="android:fontFamily">@font/inter_bold</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:color">@color/textTetriary</item>
-    </style>
-
-    <style name="TitleBold">
-        <item name="android:fontFamily">@font/inter_bold</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@color/textPrimary</item>
-    </style>
-
-    <style name="TitleRegular">
-        <item name="android:fontFamily">@font/inter_regular</item>
-        <item name="android:textSize">17sp</item>
-        <item name="android:textColor">@color/textTetriary</item>
-    </style>
-
-    <style name="Regular">
-        <item name="android:fontFamily">@font/inter_regular</item>
-        <item name="android:textSize">15sp</item>
-        <item name="android:textColor">@color/textSecondary</item>
-    </style>
-    
-    <style name="Title2Semibold">
-        <item name="android:fontFamily">@font/inter_semibold</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@color/textSecondary</item>
-    </style>
-
-    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+    <style name="SnackbarTextAppearance">
         <item name="android:fontFamily">@font/inter_medium</item>
-        <item name="android:textSize">15sp</item>
-        <item name="android:textColor">@color/textTetriary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/background_rounded_top</item>
     </style>
 </resources>

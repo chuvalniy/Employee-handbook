@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="bottom"
+    android:paddingBottom="40dp"
     android:orientation="vertical">
 
     <View
+        android:id="@+id/line"
         android:layout_width="@dimen/sort_dialog_top_line_width"
         android:layout_height="@dimen/sort_dialog_top_line_height"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:background="@color/defaultPrimary"
         android:layout_marginTop="@dimen/sort_dialog_top_line_margin_top"
         android:layout_gravity="center"/>
@@ -18,6 +24,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        app:layout_constraintLeft_toLeftOf="@id/line"
+        app:layout_constraintRight_toRightOf="@id/line"
         android:layout_marginTop="@dimen/dialog_margin_top"
         android:layout_marginBottom="@dimen/dialog_margin_bottom"
         android:text="@string/sort" />
@@ -26,21 +35,28 @@
         android:id="@+id/rgSort"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dialog_horizontal_margin"
-        android:layout_marginBottom="@dimen/dialog_margin_bottom">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSort"
+        android:layout_marginTop="36dp"
+        android:layout_marginHorizontal="@dimen/dialog_horizontal_margin">
 
         <RadioButton
             android:id="@+id/rbSortByAlphabet"
             style="@style/HeadlineMedium"
+            android:paddingStart="14dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:buttonTint="@color/purple_500"
             android:checked="true"
+            android:layout_marginBottom="40dp"
             android:text="@string/by_alphabet" />
 
         <RadioButton
             android:id="@+id/rbSortByBirthday"
             style="@style/HeadlineMedium"
+            android:paddingStart="14dp"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:buttonTint="@color/purple_500"
@@ -48,4 +64,4 @@
 
     </RadioGroup>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

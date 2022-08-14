@@ -2,15 +2,19 @@ package com.example.feature.data.local.cache.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.core.utils.fromTimestampToAge
+import com.example.core.utils.fromTimestampToBirthday
+import com.example.core.utils.fromTimestampToBirthdayFull
+import com.example.core.utils.toTimestamp
 import com.example.feature.domain.model.DomainDataSource
 
 @Entity(tableName = "user_db")
 data class CacheDataSource(
+    @PrimaryKey val id: String,
     val avatarUrl: String,
-    val timestamp: Long,
+    val birthday: String,
     val department: String,
     val firstName: String,
-    @PrimaryKey val id: String,
     val lastName: String,
     val position: String,
     val userTag: String,
@@ -19,7 +23,9 @@ data class CacheDataSource(
     fun toDomainDataSource(): DomainDataSource {
         return DomainDataSource(
             avatarUrl = avatarUrl,
-            timestamp = timestamp,
+            birthdayDay = birthday.toTimestamp().fromTimestampToBirthday(),
+            age = birthday.toTimestamp().fromTimestampToAge(),
+            birthdayFull = birthday.toTimestamp().fromTimestampToBirthdayFull(),
             department = department.toDomainDepartment(),
             name = "$firstName $lastName",
             id = id,

@@ -133,7 +133,7 @@
             app:tabGravity="fill"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/textPrimary"
-            app:tabTextAppearance="@style/tab_text"
+            app:tabTextAppearance="@style/TabText"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <com.google.android.material.divider.MaterialDivider

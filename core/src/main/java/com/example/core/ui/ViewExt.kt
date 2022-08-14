@@ -1,6 +1,7 @@
 package com.example.core.ui
 
 import android.content.Context
+import android.graphics.Typeface
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
@@ -57,8 +58,7 @@ fun Context.getSnackBar(
                 }
             })
         snackBar.view.background = ContextCompat.getDrawable(this, R.drawable.background_loading_snackbar)
-        val textView = snackBar.view.rootView.findViewById<TextView>(R.id.snackbar_text)
-        textView.textSize = 14F
+
         snackBar.show()
         return snackBar
     } else null
@@ -80,8 +80,6 @@ fun Context.showSnackBar(
                 }
             })
         snackBar.view.background = ContextCompat.getDrawable(this, R.drawable.bg_error_snackbar)
-        val textView = snackBar.view.rootView.findViewById<TextView>(R.id.snackbar_text)
-        textView.textSize = 14F
         snackBar.show()
     }
 }

@@ -6,7 +6,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class DomainDataSource(
     val avatarUrl: String,
-    val timestamp: Long,
+    val birthdayDay: String,
+    val age: String,
+    val birthdayFull: String,
     val department: String,
     val name: String,
     val id: String,
