@@ -1,5 +1,6 @@
 package com.example.feature.presentation.home.epoxy.model
 
+import androidx.core.view.isVisible
 import com.example.core.helpers.ViewBindingKotlinModel
 import com.example.feature.R
 import com.example.feature.databinding.ModelUserItemBinding
@@ -16,7 +17,10 @@ data class HomeUserItem(
         tvUserName.text = user.name
         tvUserTag.text = user.userTag
         tvDepartment.text = user.department
-        if (sortType == SortType.BY_DATE) tvBirthday.text = user.birthdayDay
+
+        tvBirthday.text = user.birthdayDay
+        tvBirthday.isVisible = sortType == SortType.BY_DATE
+
         cvUserItem.setOnClickListener {
             onMoveToDetail(user)
         }

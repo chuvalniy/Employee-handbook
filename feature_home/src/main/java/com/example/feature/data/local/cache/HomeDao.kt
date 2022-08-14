@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.feature.data.local.cache.entity.CacheDataSource
+import com.example.feature.data.remote.HomeApi
 import com.example.feature.presentation.home.model.SortType
 
 @Dao
@@ -26,15 +27,21 @@ interface HomeDao {
             )
         }
 
-    @Query("SELECT * FROM user_db WHERE department LIKE '%' || :department || '%' AND firstName lIKE '%' || :searchQuery || '%' ORDER BY firstName ASC")
+    @Query("SELECT * FROM ${HomeDatabase.DATABASE_NAME}" +
+            " WHERE department LIKE '%' || :department || '%'" +
+            " AND firstName LIKE '%' || :searchQuery || '%'" +
+            " ORDER BY firstName ASC")
     suspend fun getUsersSortedByName(department: String, searchQuery: String): List<CacheDataSource>
 
-    @Query("SELECT * FROM user_db WHERE department LIKE '%' || :department || '%' AND firstName lIKE '%' || :searchQuery || '%' ORDER BY SUBSTR(DATE('NOW'), 6) > SUBSTR(birthday, 6), SUBSTR(birthday, 6)")
+    @Query("SELECT * FROM ${HomeDatabase.DATABASE_NAME}" +
+            " WHERE department LIKE '%' || :department || '%'" +
+            " AND firstName LIKE '%' || :searchQuery || '%'" +
+            " ORDER BY SUBSTR(DATE('NOW'), 6) > SUBSTR(birthday, 6), SUBSTR(birthday, 6)")
     suspend fun getUsersSortedByBirthday(department: String, searchQuery: String): List<CacheDataSource>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCache(users: List<CacheDataSource>)
 
-    @Query("DELETE FROM user_db")
+    @Query("DELETE FROM ${HomeDatabase.DATABASE_NAME}")
     suspend fun clearCache()
 }
