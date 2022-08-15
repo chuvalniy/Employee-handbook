@@ -8,6 +8,9 @@ import androidx.core.view.WindowInsetsControllerCompat
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setTheme(R.style.Theme_KodeTestApp)
+
         setContentView(R.layout.activity_main)
 
         val window: Window = window

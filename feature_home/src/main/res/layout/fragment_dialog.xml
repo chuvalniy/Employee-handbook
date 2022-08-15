@@ -12,7 +12,6 @@
         android:id="@+id/line"
         android:layout_width="@dimen/line_width"
         android:layout_height="@dimen/line_height"
-        android:layout_gravity="center"
         android:layout_marginTop="@dimen/line_margin_top"
         android:background="@color/defaultPrimary"
         app:layout_constraintLeft_toLeftOf="parent"

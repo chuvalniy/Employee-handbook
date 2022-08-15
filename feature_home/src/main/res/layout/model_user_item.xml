@@ -1,74 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cvUserItem"
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_height"
-    android:elevation="0dp"
-    app:cardElevation="0dp">
+>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvUserItem"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:elevation="0dp"
+        app:cardElevation="0dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/ivAvatar"
-            android:layout_width="@dimen/list_image_size"
-            android:layout_height="@dimen/list_image_size"
-            android:layout_marginStart="@dimen/layout_margin"
-            android:layout_marginLeft="@dimen/layout_margin"
-            android:src="@drawable/plug"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tvUserName"
-            style="@style/HeadlineMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/layout_margin"
-            app:layout_constraintBottom_toTopOf="@+id/tvDepartment"
-            app:layout_constraintLeft_toRightOf="@id/ivAvatar"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            tools:text="Alexey Minogarov" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="@dimen/list_image_size"
+                android:layout_height="@dimen/list_image_size"
+                android:layout_marginStart="@dimen/layout_margin"
+                android:layout_marginLeft="@dimen/layout_margin"
+                android:src="@drawable/plug"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvUserTag"
-            style="@style/SubheadMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/tag_margin_start"
-            app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
-            app:layout_constraintStart_toEndOf="@+id/tvUserName"
-            tools:text="mi" />
+            <TextView
+                android:id="@+id/tvUserName"
+                style="@style/HeadlineMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/layout_margin"
+                app:layout_constraintBottom_toTopOf="@+id/tvDepartment"
+                app:layout_constraintLeft_toRightOf="@id/ivAvatar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Alexey Minogarov" />
+
+            <TextView
+                android:id="@+id/tvUserTag"
+                style="@style/SubheadMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tag_margin_start"
+                app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
+                app:layout_constraintStart_toEndOf="@+id/tvUserName"
+                tools:text="mi" />
 
 
-        <TextView
-            android:id="@+id/tvDepartment"
-            style="@style/CaptionRegular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/department_margin_top"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tvUserName"
-            app:layout_constraintTop_toBottomOf="@+id/tvUserName"
-            tools:text="Analyst" />
+            <TextView
+                android:id="@+id/tvDepartment"
+                style="@style/CaptionRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/department_margin_top"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvUserName"
+                app:layout_constraintTop_toBottomOf="@+id/tvUserName"
+                tools:text="Analyst" />
 
-        <TextView
-            android:id="@+id/tvBirthday"
-            style="@style/Regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/layout_margin"
-            app:layout_constraintBottom_toBottomOf="@+id/ivAvatar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/ivAvatar"
-            tools:text="5 June" />
+            <TextView
+                android:id="@+id/tvBirthday"
+                style="@style/Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/layout_margin"
+                app:layout_constraintBottom_toBottomOf="@+id/ivAvatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ivAvatar"
+                tools:text="5 June" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-</com.google.android.material.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>
+
+</FrameLayout>
