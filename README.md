@@ -1,41 +1,17 @@
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/85331232/158330731-7dfc9273-af87-4a36-abe1-b1e8bcf6a532.png">
+  <img src="https://sun9-64.userapi.com/impg/-1DikgSZQYwtrdW0ckQS7NNBnAJCAanTyk5KQw/7EcJE-kfIRE.jpg?size=1024x500&quality=96&sign=e5112c2f216a67f7b1e02fcab35f1497&type=album">
 </p>
 
-## Key Features
+## Overview
+Employee handbook app consists of only two screens but at the same it supports network requests and their caching, various actions with data (search, sorting, filtering) and screen state management (different loading and error states).
 
-- Sort employees by alphabet/birthday
-- Search employees by name/tag
-- Filter by department (TabLayout)
-- Get detail info about employee
-- Cache (Room + Shared preferences)
-- Handling process death
-- Various error processing
+## Getting started
+If you want to read about app architecture, you can check [this](https://github.com/chuvalik/Employee-handbook/blob/main/documentation/Architecture.md) link.
 
 
-## App Preview
+## Useful links
+This app was implemented as my implementation of [this](https://github.com/appKODE/trainee-test-android) test assignment. You can get the design from [here](https://www.figma.com/file/GRRKONipVClULsfdCAuVs1/KODE-Trainee-Dev-%D0%9E%D1%81%D0%B5%D0%BD%D1%8C'21?node-id=11%3A14413) and api from [here](https://kode-education.stoplight.io/docs/trainee-test/b3A6MjUxNDM5Mjg-get-users). There is an issue with loading user profile images on the backend side.
 
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/85331232/158332183-f0d83baf-3e2e-44e6-9b1c-836b2a984610.jpg">
-  <img src="https://user-images.githubusercontent.com/85331232/158332188-6001f411-41b2-47e9-8373-0314ec3f0238.jpg">
-  <img src="https://user-images.githubusercontent.com/85331232/158332173-955c0383-c5d7-4984-9bb5-7d18795dc27a.jpg">
-  <img src="https://user-images.githubusercontent.com/85331232/158332179-4a144f28-13e1-42ab-868c-37d00429c496.jpg">
-</p>
-
-## Architecture Components
-
-- MVVM
-- Retrofit
-- Room
-- Koin
-- Navigation Component
-- ViewModel
-- Coroutines
-- Flow
-- Glide
-- Epoxy
-
-
-## Source: https://www.figma.com/file/GRRKONipVClULsfdCAuVs1/KODE-Trainee-Dev-%D0%9E%D1%81%D0%B5%D0%BD%D1%8C'21?node-id=11%3A19723
+If you're not familliar with epoxy, I suggest to check this [channel](https://www.youtube.com/c/TheAndroidFactory) and read the official [AirBnb Epoxy wiki](https://github.com/airbnb/epoxy/wiki).
 
