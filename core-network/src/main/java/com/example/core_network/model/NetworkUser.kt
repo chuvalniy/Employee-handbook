@@ -1,11 +1,6 @@
-package com.example.feature.data.remote.dto
+package com.example.core_network.model
 
-
-data class CloudDataSourceResponse(
-    val items: List<CloudDataSource>
-)
-
-data class CloudDataSource(
+data class NetworkUser(
     val avatarUrl: String,
     val birthday: String,
     val department: String,

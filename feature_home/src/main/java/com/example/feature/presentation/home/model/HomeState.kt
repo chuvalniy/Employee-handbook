@@ -16,8 +16,3 @@ data class HomeState(
 enum class LoadingState {
     SHIMMER, SNACKBAR, NONE
 }
-
-enum class SortType {
-    BY_NAME,
-    BY_DATE
-}

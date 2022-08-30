@@ -4,12 +4,12 @@ import com.example.core.utils.fromTimestampToAge
 import com.example.core.utils.fromTimestampToBirthday
 import com.example.core.utils.fromTimestampToBirthdayFull
 import com.example.core.utils.toTimestamp
-import com.example.feature.data.local.cache.entity.CacheDataSource
+import com.example.core_database.model.CacheDataSource
 import com.example.feature.data.remote.dto.CloudDataSource
 import com.example.feature.domain.model.DomainDataSource
 
 
-fun CacheDataSource.toDomainDataSource(): DomainDataSource {
+fun com.example.core_database.model.CacheDataSource.toDomainDataSource(): DomainDataSource {
     return DomainDataSource(
         avatarUrl = avatarUrl,
         birthdayDay = birthday.toTimestamp().fromTimestampToBirthday(),
@@ -42,7 +42,7 @@ fun String.toUiDepartment(): String {
     }
 }
 
-fun CloudDataSource.toCacheDataSource(): CacheDataSource {
+fun CloudDataSource.toCacheDataSource(): com.example.core_database.model.CacheDataSource {
     return CacheDataSource(
         avatarUrl = avatarUrl,
         birthday = birthday,

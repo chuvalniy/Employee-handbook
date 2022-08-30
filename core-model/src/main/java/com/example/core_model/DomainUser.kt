@@ -1,10 +1,6 @@
-package com.example.feature.domain.model
+package com.example.core_model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-
-@Parcelize
-data class DomainDataSource(
+data class DomainUser(
     val avatarUrl: String,
     val birthdayDay: String,
     val age: String,
@@ -15,4 +11,4 @@ data class DomainDataSource(
     val position: String,
     val userTag: String,
     val phone: String
-): Parcelable
+)

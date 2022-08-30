@@ -28,7 +28,7 @@
         tools:layout="@layout/fragment_detail">
         <argument
             android:name="user"
-            app:argType="com.example.feature.domain.model.DomainDataSource" />
+            app:argType="com.example.feature.domain.model.com.example.core_model.DomainDataSource" />
     </fragment>
     <dialog
         android:id="@+id/filter_dialog"

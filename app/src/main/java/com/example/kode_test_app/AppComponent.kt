@@ -17,10 +17,8 @@ import javax.inject.Singleton
 interface AppComponent : HomeDeps {
 
     override val connectivityObserver: ConnectivityObserver
-        get() = TODO("Not yet implemented")
 
     override val glide: RequestManager
-        get() = TODO("Not yet implemented")
 
     @Component.Builder
     interface Builder {

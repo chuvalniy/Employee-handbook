@@ -30,42 +30,7 @@ class HomeRepositoryImpl @Inject constructor(
         sortType: SortType,
         searchQuery: String,
     ): Flow<Resource<List<DomainDataSource>>> {
-        return flow {
-            emit(Resource.Loading(isLoading = true))
 
-            val cache = dao.fetchCache(department, sortType, searchQuery)
-            emit(Resource.Success(cache.map { it.toDomainDataSource() }))
-
-            val response = try {
-                api.fetchCloudDataSource()
-            } catch (e: HttpException) {
-                emit(Resource.Error(error = UiText.StringResource(R.string.api_error)))
-                emit(Resource.Loading(isLoading = false))
-                null
-            } catch (e: IOException) {
-                emit(Resource.Error(error = UiText.StringResource(R.string.api_error)))
-                emit(Resource.Loading(isLoading = false))
-                null
-            } catch (e: Exception) {
-                emit(Resource.Error(error = UiText.StringResource(com.example.core.R.string.unexpected_error)))
-                emit(Resource.Loading(isLoading = false))
-                null
-            }
-
-            response?.let { data ->
-                db.withTransaction {
-                    dao.clearCache()
-                    dao.insertCache(data.items.map { it.toCacheDataSource() })
-                }
-
-                emit(
-                    Resource.Success(
-                        dao.fetchCache(department, sortType, searchQuery)
-                            .map { it.toDomainDataSource() })
-                )
-                emit(Resource.Loading(isLoading = false))
-            }
-        }
     }
 
 }
