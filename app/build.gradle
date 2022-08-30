@@ -38,7 +38,9 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation project(path: ':feature_home')
-    implementation project(path: ':core')
+    implementation project(path: ':core-common')
+    implementation project(path: ':core-navigation')
+    implementation project(path: ':feature-main')
 
     // Navigation Component
     def nav_version = "2.4.0"
@@ -46,7 +48,13 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     // Koin
-    implementation "io.insert-koin:koin-android:3.2.0-beta-1"
+    def koin_version="3.2.0-beta-1"
+    implementation "io.insert-koin:koin-android:$koin_version"
+
+    // Dagger 2
+    def dagger_version="2.43.2"
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.13.0'

@@ -8,7 +8,6 @@
     <string name="loading_message">Wait a second, I\'m loading.</string>
     <string name="internet_connection_error">Can\'t update data. Check your internet connection.</string>
     <string name="api_error">Can\'t update data. Something went wrong.</string>
-    <string name="unexpected_error">Unexpected error occurred.</string>
     <string name="try_again">Try again</string>
     <string name="we_ll_try_to_fix_it_quickly">We\'ll try to fix it quickly</string>
     <string name="someone_broke_everything">Someone broke everything</string>

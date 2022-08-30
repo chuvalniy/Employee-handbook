@@ -16,11 +16,9 @@
         <action
             android:id="@+id/action_home_to_filter_dialog"
             app:destination="@id/filter_dialog" />
-        <action
-            android:id="@+id/action_home__to_init_error"
-            app:destination="@id/init_error"
-            app:popUpTo="@id/home_"
-            app:popUpToInclusive="true" />
+        <deepLink
+            android:id="@+id/deeplinkHome"
+            app:uri="myApp://featureHome" />
     </fragment>
 
     <fragment
@@ -36,14 +34,4 @@
         android:id="@+id/filter_dialog"
         android:name="com.example.feature.presentation.home.fragment.FilterBottomSheetFragment"
         android:label="FilterBottomSheetFragment" />
-    <fragment
-        android:id="@+id/init_error"
-        android:name="com.example.feature.presentation.home.fragment.ErrorFragment"
-        android:label="ErrorFragment" >
-        <action
-            android:id="@+id/action_init_error_to_home_"
-            app:destination="@id/home_"
-            app:popUpTo="@id/init_error"
-            app:popUpToInclusive="true" />
-    </fragment>
 </navigation>

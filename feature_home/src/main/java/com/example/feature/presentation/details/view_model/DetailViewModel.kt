@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.feature.domain.model.DomainDataSource
 import com.example.feature.presentation.details.fragment.DetailFragment
 import com.example.feature.presentation.details.model.DetailsState
-import com.example.feature.presentation.details.model.UiEvent
-import com.example.feature.presentation.details.model.UiSideEffect
+import com.example.feature.presentation.details.model.DetailsEvent
+import com.example.feature.presentation.details.model.DetailsSideEffect
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,7 +21,7 @@ class DetailViewModel(
     private val _uiState = MutableStateFlow(DetailsState())
     val uiState get() = _uiState.asStateFlow()
 
-    private val _uiEffect = Channel<UiSideEffect>()
+    private val _uiEffect = Channel<DetailsSideEffect>()
     val uiEffect get() = _uiEffect.receiveAsFlow()
 
 
@@ -31,13 +31,13 @@ class DetailViewModel(
         )
     }
 
-    fun onEvent(event: UiEvent) {
+    fun onEvent(event: DetailsEvent) {
         when (event) {
-            is UiEvent.BackButtonPressed -> backButtonPressed()
+            is DetailsEvent.BackButtonPressed -> backButtonPressed()
         }
     }
 
     private fun backButtonPressed() = viewModelScope.launch {
-        _uiEffect.send(UiSideEffect.NavigateBack)
+        _uiEffect.send(DetailsSideEffect.NavigateBack)
     }
 }

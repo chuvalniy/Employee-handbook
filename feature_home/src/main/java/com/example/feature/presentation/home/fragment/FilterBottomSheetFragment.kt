@@ -6,19 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.example.feature.databinding.FragmentDialogBinding
-import com.example.feature.presentation.home.view_model.HomeViewModel
+import com.example.feature.presentation.home.model.HomeEvent
+import com.example.feature.presentation.home.model.HomeState
 import com.example.feature.presentation.home.model.SortType
-import com.example.feature.presentation.home.model.UiEvent
-import com.example.feature.presentation.home.model.UiState
+import com.example.feature.presentation.home.view_model.HomeViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FilterBottomSheetFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentDialogBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by sharedViewModel<HomeViewModel>()
+    private val viewModel: HomeViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,22 +39,22 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun processUiEvent() {
         binding.rbSortByBirthday.setOnClickListener {
-            viewModel.onEvent(UiEvent.SortTypeSelected(SortType.BY_DATE))
+            viewModel.onEvent(HomeEvent.SortTypeSelected(SortType.BY_DATE))
         }
         binding.rbSortByAlphabet.setOnClickListener {
-            viewModel.onEvent(UiEvent.SortTypeSelected(SortType.BY_NAME))
+            viewModel.onEvent(HomeEvent.SortTypeSelected(SortType.BY_NAME))
         }
     }
 
     private fun observeUiState() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.uiState.collect { state ->
+            viewModel.state.collect { state ->
                 processUiState(state)
             }
         }
     }
 
-    private fun processUiState(state: UiState) {
+    private fun processUiState(state: HomeState) {
         when (state.sortType) {
             SortType.BY_NAME -> {
                 binding.rbSortByAlphabet.isChecked = true

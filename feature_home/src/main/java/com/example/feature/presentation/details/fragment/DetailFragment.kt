@@ -10,8 +10,8 @@ import com.example.core.ui.BaseFragment
 import com.example.feature.R
 import com.example.feature.databinding.FragmentDetailBinding
 import com.example.feature.presentation.details.model.DetailsState
-import com.example.feature.presentation.details.model.UiEvent
-import com.example.feature.presentation.details.model.UiSideEffect
+import com.example.feature.presentation.details.model.DetailsEvent
+import com.example.feature.presentation.details.model.DetailsSideEffect
 import com.example.feature.presentation.details.view_model.DetailViewModel
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
@@ -36,7 +36,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.uiEffect.collect { effect ->
                 when (effect) {
-                    is UiSideEffect.NavigateBack -> {
+                    is DetailsSideEffect.NavigateBack -> {
                         findNavController().popBackStack()
                     }
                 }
@@ -46,7 +46,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
     private fun processUiEvent() {
         binding.btnGoBack.setOnClickListener {
-            viewModel.onEvent(UiEvent.BackButtonPressed)
+            viewModel.onEvent(DetailsEvent.BackButtonPressed)
         }
     }
 
@@ -60,12 +60,14 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
     private fun processUiState(state: DetailsState) {
         with(binding) {
-            tvUserName.text = state.data.name
-            tvAge.text = getString(R.string.age, state.data.age)
-            tvBirthday.text = state.data.birthdayFull
-            tvPhoneNumber.text = state.data.phone
-            tvUserTag.text = state.data.userTag
-            tvPosition.text = state.data.position
+            state.data?.let {
+                tvUserName.text = state.data.name
+                tvAge.text = getString(R.string.age, state.data.age)
+                tvBirthday.text = state.data.birthdayFull
+                tvPhoneNumber.text = state.data.phone
+                tvUserTag.text = state.data.userTag
+                tvPosition.text = state.data.position
+            }
         }
     }
 

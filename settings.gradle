@@ -14,5 +14,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Kode-Test-App"
 include ':app'
-include ':core'
+include ':core-common'
 include ':feature_home'
+include ':core-navigation'
+include ':feature-main'
