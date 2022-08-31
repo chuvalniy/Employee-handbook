@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -31,6 +32,11 @@ android {
 
 dependencies {
     implementation project(path: ':core-common')
+
+    // Dagger 2
+    def dagger_version="2.43.2"
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
     // Retrofit
     def retrofit_version = "2.9.0"

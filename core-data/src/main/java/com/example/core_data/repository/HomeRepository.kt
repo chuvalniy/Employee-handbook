@@ -1,6 +1,6 @@
 package com.example.core_data.repository
 
-import com.example.core.utils.Resource
+import com.example.core.core.Resource
 import com.example.core.utils.SortType
 import com.example.core_model.DomainUser
 import kotlinx.coroutines.flow.Flow

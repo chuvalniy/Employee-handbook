@@ -8,8 +8,10 @@
       <module name="Kode-Test-App.core-database" target="11" />
       <module name="Kode-Test-App.core-navigation" target="11" />
       <module name="Kode-Test-App.core-network" target="11" />
+      <module name="Kode-Test-App.core-preferences" target="11" />
+      <module name="Kode-Test-App.feature-details" target="11" />
+      <module name="Kode-Test-App.feature-home" target="11" />
       <module name="Kode-Test-App.feature-main" target="11" />
-      <module name="Kode-Test-App.feature_home" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="unexpected_error">Unexpected error occurred.</string>
+    <string name="search_hint">Enter name, tag, mail…</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="sort">Sort</string>
+    <string name="by_alphabet">By alphabet</string>
+    <string name="by_birthday">By birthday</string>
+    <string name="age">%1s years</string>
+    <string name="loading_message">Wait a second, I\'m loading.</string>
+    <string name="internet_connection_error">Can\'t update data. Check your internet connection.</string>
+    <string name="api_error">Can\'t update data. Something went wrong.</string>
+    <string name="try_again">Try again</string>
+    <string name="we_ll_try_to_fix_it_quickly">We\'ll try to fix it quickly</string>
+    <string name="someone_broke_everything">Someone broke everything</string>
+    <string name="try_editing_your_request">Try editing your request</string>
+    <string name="we_didn_t_find_anyone">We didn\'t find anyone</string>
+    <string name="birthday_icon">Birthday icon</string>
+    <string name="phone_icon">Phone icon</string>
+    <string name="go_back">Go back</string>
+    <string name="ufo_icon">UFO icon</string>
+    <string name="sort_button">Sort dialog</string>
+    <string name="cancel_searching">Cancel searching</string>
+    <string name="search_error_icon">Search error icon</string>
 </resources>

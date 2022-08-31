@@ -2,7 +2,8 @@ package com.example.core.utils
 
 import android.annotation.SuppressLint
 import com.example.core.R
-import com.example.core.ui.UiText
+import com.example.core.core.Resource
+import com.example.core.core.UiText
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onEach
 import java.text.SimpleDateFormat

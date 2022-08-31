@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.core.ui.BaseFragment
+import com.example.core.presentation.BaseFragment
 import com.example.core_navigation.NavCommand
 import com.example.core_navigation.NavCommands
 import com.example.core_navigation.navigate

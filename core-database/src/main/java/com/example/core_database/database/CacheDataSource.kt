@@ -3,6 +3,7 @@ package com.example.core_database.database
 import androidx.room.withTransaction
 import com.example.core.utils.SortType
 import com.example.core_database.model.CacheUser
+import javax.inject.Inject
 
 interface CacheDataSource {
 
@@ -14,7 +15,7 @@ interface CacheDataSource {
 
     suspend fun updateData(cache: List<CacheUser>)
 
-    class RoomCacheDataSource(
+    class RoomCacheDataSource @Inject constructor(
         private val database: CacheDatabase,
         private val dao: CacheDao,
     ) : CacheDataSource {
