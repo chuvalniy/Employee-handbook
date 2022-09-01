@@ -37,6 +37,7 @@ dependencies {
     implementation project(path: ':core-navigation')
     implementation project(path: ':core-common')
     implementation project(path: ':feature-home')
+    implementation project(path: ':feature-details')
 
     // Navigation Component
     def nav_version = "2.5.1"

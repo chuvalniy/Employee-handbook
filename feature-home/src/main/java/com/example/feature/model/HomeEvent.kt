@@ -8,7 +8,7 @@ sealed class HomeEvent : UiEvent {
     data class SortTypeSelected(val sortType: SortType) : HomeEvent()
     data class SearchQueryChanged(val query: String) : HomeEvent()
     data class DepartmentSelected(val department: String) : HomeEvent()
-    data class UserItemClicked(val user: DomainUser) : HomeEvent()
+    data class UserItemClicked(val id: String) : HomeEvent()
     object FilterButtonClicked : HomeEvent()
     object ScreenRefreshed : HomeEvent()
 }

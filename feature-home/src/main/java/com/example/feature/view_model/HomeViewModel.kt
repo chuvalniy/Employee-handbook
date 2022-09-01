@@ -1,8 +1,7 @@
 package com.example.feature.view_model
 
-import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.bumptech.glide.Glide.init
 import com.example.core.core.ConnectivityObserver
 import com.example.core.core.UiText
 import com.example.core.presentation.BaseViewModel
@@ -17,15 +16,16 @@ import com.example.feature.model.LoadingState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-// return SavedStateHandle
 
-internal class HomeViewModel(
+internal class HomeViewModel @Inject constructor(
     private val repository: HomeRepository,
     private val preferences: UserPreferences,
     private val connectivityObserver: ConnectivityObserver,
+    private val savedState: SavedStateHandle
 ) : BaseViewModel<HomeEvent, HomeState, HomeEffect>(HomeState()) {
 
     init {
@@ -33,9 +33,9 @@ internal class HomeViewModel(
         else {
             _state.value = _state.value.copy(
                 sortType = preferences.fetchSortType(),
-//                departmentFilter = savedState.get<String>(KEY_FILTER_SAVED_STATE)
-//                    ?: DEFAULT_VALUE,
-//                searchQuery = savedState.get<String>(KEY_SEARCH_SAVED_STATE) ?: DEFAULT_VALUE
+                departmentFilter = savedState.get<String>(KEY_FILTER_SAVED_STATE)
+                    ?: DEFAULT_VALUE,
+                searchQuery = savedState.get<String>(KEY_SEARCH_SAVED_STATE) ?: DEFAULT_VALUE
             )
             fetchData(loadingState = LoadingState.SHIMMER)
         }
@@ -50,7 +50,8 @@ internal class HomeViewModel(
         repository.fetchData(department, sortType, searchQuery).onEachResource(
             onError = { showSnackbar(it) },
             onSuccess = {
-                _state.value = _state.value.copy(data = it) },
+                _state.value = _state.value.copy(data = it)
+            },
             onLoading = { isLoading ->
                 if (isLoading) _state.value = _state.value.copy(loadingState = loadingState)
                 else _state.value = _state.value.copy(loadingState = LoadingState.NONE)
@@ -84,12 +85,12 @@ internal class HomeViewModel(
     }
 
     private fun userItemClicked(event: HomeEvent.UserItemClicked) {
-        viewModelScope.launch { _sideEffect.send(HomeEffect.NavigateToDetails(event.user)) }
+        viewModelScope.launch { _sideEffect.send(HomeEffect.NavigateToDetails(event.id)) }
     }
 
     private fun sortTypeSelected(event: HomeEvent.SortTypeSelected) {
         preferences.updateSortType(event.sortType)
-        _state.value = _state.value.copy(sortType = preferences.fetchSortType())
+        _state.update { it.copy(sortType = preferences.fetchSortType()) }
         fetchData()
     }
 
@@ -97,12 +98,13 @@ internal class HomeViewModel(
 
     private fun searchQueryChanged(event: HomeEvent.SearchQueryChanged) {
         if (event.query == _state.value.searchQuery) return
-//        savedState[KEY_SEARCH_SAVED_STATE] = event.query
+        savedState[KEY_SEARCH_SAVED_STATE] = event.query
 
-        _state.value = _state.value.copy(
-//            searchQuery = savedState.get<String>(KEY_SEARCH_SAVED_STATE) ?: DEFAULT_VALUE
-            searchQuery = event.query
-        )
+        _state.update {
+            it.copy(
+                searchQuery = savedState.get<String>(KEY_SEARCH_SAVED_STATE) ?: DEFAULT_VALUE
+            )
+        }
 
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
@@ -113,12 +115,14 @@ internal class HomeViewModel(
 
     private fun departmentSelected(event: HomeEvent.DepartmentSelected) {
         if (_state.value.departmentFilter == event.department) return
-//        savedState[KEY_FILTER_SAVED_STATE] = event.department
+        savedState[KEY_FILTER_SAVED_STATE] = event.department
 
-        _state.value = _state.value.copy(
-//            departmentFilter = savedState.get<String>(KEY_FILTER_SAVED_STATE) ?: DEFAULT_VALUE
-            departmentFilter = event.department
-        )
+        _state.update {
+            it.copy(
+                departmentFilter = savedState.get<String>(KEY_FILTER_SAVED_STATE) ?: DEFAULT_VALUE
+            )
+        }
+
         fetchData()
     }
 

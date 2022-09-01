@@ -6,7 +6,7 @@ import com.example.core_model.DomainUser
 
 sealed class HomeEffect : UiSideEffect {
     data class ShowSnackbar(val message: UiText) : HomeEffect()
-    data class NavigateToDetails(val user: DomainUser) : HomeEffect()
+    data class NavigateToDetails(val id: String) : HomeEffect()
     object NavigateToErrorScreen : HomeEffect()
     object ShowFilterDialog : HomeEffect()
 }

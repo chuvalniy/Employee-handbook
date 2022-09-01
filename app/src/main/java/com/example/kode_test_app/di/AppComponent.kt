@@ -4,9 +4,11 @@ import android.content.Context
 import com.bumptech.glide.RequestManager
 import com.example.core.core.ConnectivityObserver
 import com.example.core.core.NetworkConnectivityObserver
+import com.example.core_data.repository.DetailsRepository
 import com.example.core_data.repository.HomeRepository
 import com.example.core_preferences.UserPreferences
 import com.example.feature.di.HomeDeps
+import com.example.feature_details.di.DetailsDeps
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Scope
@@ -17,13 +19,13 @@ annotation class AppScope
 
 @Component(modules = [AppModule::class])
 @AppScope
-interface AppComponent : HomeDeps {
+interface AppComponent : HomeDeps, DetailsDeps {
 
     override val glide: RequestManager
-    override val repository: HomeRepository
+    override val detailsRepository: DetailsRepository
+    override val homeRepository: HomeRepository
     override val connectivityObserver: ConnectivityObserver
     override val userPreferences: UserPreferences
-
 
     @Component.Builder
     interface Builder {

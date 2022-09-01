@@ -3,12 +3,10 @@ package com.example.feature.fragment
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
@@ -31,19 +29,17 @@ import com.example.feature.model.HomeEffect
 import com.example.feature.model.HomeEvent
 import com.example.feature.model.HomeState
 import com.example.feature.model.LoadingState
+import com.example.feature.view_model.AssistedHomeViewModelFactory
 import com.example.feature.view_model.HomeViewModel
-import com.example.feature.view_model.HomeViewModelFactory
 import com.google.android.material.snackbar.Snackbar
-import dagger.Lazy
 import javax.inject.Inject
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     @Inject
-    internal lateinit var factory: Lazy<HomeViewModelFactory>
-
+    internal lateinit var factory: AssistedHomeViewModelFactory
     private val viewModel: HomeViewModel by navGraphViewModels(R.id.home_nav_graph) {
-        factory.get()
+        factory.create(this)
     }
 
     private var epoxyController: HomeEpoxyController? = null
@@ -108,17 +104,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun setupEpoxyController() {
         epoxyController = HomeEpoxyController(
-            onMoveToDetail = { viewModel.onEvent(HomeEvent.UserItemClicked(it)) },
+            onMoveToDetail = { viewModel.onEvent(HomeEvent.UserItemClicked(it.id)) },
         ).also {
             binding.epoxyRecyclerView.setController(it)
         }
     }
 
-    private fun observeUiState() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.state.collect { state ->
-                processUiState(state)
-            }
+    private fun observeUiState() = viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+        viewModel.state.collect { state ->
+            processUiState(state)
         }
     }
 
@@ -146,10 +140,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun observeUiEffects() = viewLifecycleOwner.lifecycleScope.launchWhenStarted {
         viewModel.sideEffect.collect { effect ->
             when (effect) {
-                is HomeEffect.NavigateToDetails -> {
-                    // TODO
-//                    findNavController().navigate(action)
-                }
+                is HomeEffect.NavigateToDetails -> navigateToDetails(effect.id)
                 is HomeEffect.ShowFilterDialog ->
                     findNavController().navigate(R.id.action_home_to_filter_dialog)
                 is HomeEffect.ShowSnackbar -> requireContext().showSnackBar(
@@ -161,18 +152,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
-    private fun navigateToError() {
-        navigate(
-            NavCommand(
-                NavCommands.DeepLink(
-                    url = Uri.parse("myApp://fragmentError"),
-                    isModal = true,
-                    isSingleTop = true
-                )
+    private fun navigateToDetails(id: String) = navigate(
+        NavCommand(
+            NavCommands.DeepLink(
+                url = Uri.parse("myApp://featureDetails/${id}"),
+                isModal = true,
+                isSingleTop = false
             )
         )
-    }
+    )
 
+
+    private fun navigateToError() = navigate(
+        NavCommand(
+            NavCommands.DeepLink(
+                url = Uri.parse("myApp://fragmentError"),
+                isModal = true,
+                isSingleTop = true
+            )
+        )
+    )
 
     override fun initBinding(
         inflater: LayoutInflater,

@@ -1,27 +1,40 @@
 package com.example.feature_details.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.core.presentation.BaseFragment
 import com.example.feature_details.databinding.FragmentDetailBinding
-import com.example.feature_details.model.DetailsEvent
-import com.example.feature_details.model.DetailsSideEffect
-import com.example.feature_details.model.DetailsState
+import com.example.feature_details.di.DetailComponentViewModel
+import com.example.feature_details.model.DetailEvent
+import com.example.feature_details.model.DetailSideEffect
+import com.example.feature_details.model.DetailState
+import com.example.feature_details.view_model.AssistedDetailsViewModelFactory
 import com.example.feature_details.view_model.DetailViewModel
-import com.example.feature_details.view_model.DetailViewModelFactory
 import javax.inject.Inject
 
 class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
     @Inject
-    internal lateinit var factory: Lazy<DetailViewModelFactory>
+    internal lateinit var factory: AssistedDetailsViewModelFactory
 
-    private val viewModel: DetailViewModel by viewModels { factory.value }
+    private val viewModel: DetailViewModel by viewModels {
+        factory.create(this, defaultArgs = arguments)
+    }
+
+    override fun onAttach(context: Context) {
+        ViewModelProvider(this).get<DetailComponentViewModel>()
+            .detailsComponent.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,14 +48,14 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     private fun observeUiEffect() = viewLifecycleOwner.lifecycleScope.launchWhenStarted {
         viewModel.sideEffect.collect { effect ->
             when (effect) {
-                is DetailsSideEffect.NavigateBack -> findNavController().popBackStack()
+                is DetailSideEffect.NavigateBack -> findNavController().popBackStack()
             }
         }
     }
 
     private fun processUiEvent() {
         binding.btnGoBack.setOnClickListener {
-            viewModel.onEvent(DetailsEvent.BackButtonPressed)
+            viewModel.onEvent(DetailEvent.BackButtonPressed)
         }
     }
 
@@ -52,7 +65,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
         }
     }
 
-    private fun processUiState(state: DetailsState) {
+    private fun processUiState(state: DetailState) {
         with(binding) {
             state.data?.let {
                 tvUserName.text = state.data.name

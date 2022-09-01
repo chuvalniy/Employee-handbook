@@ -33,7 +33,7 @@ internal interface HomeComponent {
 
 interface HomeDeps {
     val glide: RequestManager
-    val repository: HomeRepository
+    val homeRepository: HomeRepository
     val userPreferences: UserPreferences
     val connectivityObserver: ConnectivityObserver
 }

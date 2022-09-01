@@ -1,9 +1,8 @@
 package com.example.feature.di
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 
-internal class HomeComponentViewModel(application: Application) : AndroidViewModel(application) {
+internal class HomeComponentViewModel : ViewModel() {
 
     val homeComponent: HomeComponent by lazy {
         DaggerHomeComponent.builder()

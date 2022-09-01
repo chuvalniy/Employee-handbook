@@ -16,6 +16,7 @@ import com.example.feature.databinding.FragmentDialogBinding
 import com.example.feature.di.HomeComponentViewModel
 import com.example.feature.model.HomeEvent
 import com.example.feature.model.HomeState
+import com.example.feature.view_model.AssistedHomeViewModelFactory
 import com.example.feature.view_model.HomeViewModel
 import com.example.feature.view_model.HomeViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -28,10 +29,10 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
 
     @Inject
-    internal lateinit var factory: Lazy<HomeViewModelFactory>
+    internal lateinit var factory: AssistedHomeViewModelFactory
 
     private val viewModel: HomeViewModel by navGraphViewModels(R.id.home_nav_graph) {
-        factory.get()
+        factory.create(this)
     }
 
     override fun onAttach(context: Context) {
