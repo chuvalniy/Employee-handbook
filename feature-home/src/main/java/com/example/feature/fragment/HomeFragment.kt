@@ -3,6 +3,7 @@ package com.example.feature.fragment
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.example.core.presentation.BaseFragment
 import com.example.core.ui.getSnackBar
 import com.example.core.ui.onQueryTextChanged
@@ -40,15 +42,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     @Inject
     internal lateinit var factory: Lazy<HomeViewModelFactory>
 
-    private val viewModel: HomeViewModel by viewModels { factory.get() }
+    private val viewModel: HomeViewModel by navGraphViewModels(R.id.home_nav_graph) {
+        factory.get()
+    }
 
     private var epoxyController: HomeEpoxyController? = null
     private var snackbar: Snackbar? = null
 
     override fun onAttach(context: Context) {
-        super.onAttach(context)
         ViewModelProvider(this).get<HomeComponentViewModel>()
             .homeComponent.inject(this)
+        super.onAttach(context)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

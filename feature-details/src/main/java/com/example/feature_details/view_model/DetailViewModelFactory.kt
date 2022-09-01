@@ -2,11 +2,12 @@ package com.example.feature_details.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.core_data.repository.DetailsRepository
 import com.example.core_data.repository.HomeRepository
 import javax.inject.Inject
 
 class DetailViewModelFactory @Inject constructor(
-    private val repository: HomeRepository
+    private val repository: DetailsRepository
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")

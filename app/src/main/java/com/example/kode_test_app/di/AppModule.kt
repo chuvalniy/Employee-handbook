@@ -8,6 +8,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.core.core.ConnectivityObserver
 import com.example.core.core.NetworkConnectivityObserver
+import com.example.core_data.repository.DetailsRepository
+import com.example.core_data.repository.DetailsRepositoryImpl
 import com.example.core_data.repository.HomeRepository
 import com.example.core_data.repository.HomeRepositoryImpl
 import com.example.core_database.database.CacheDataSource
@@ -65,6 +67,8 @@ object AppModule {
 @Module
 interface AppBindModule {
 
+
+    // TODO
     @Binds
     @AppScope
     fun bindHomeRepository(homeRepositoryImpl: HomeRepositoryImpl): HomeRepository
@@ -84,4 +88,8 @@ interface AppBindModule {
     @Binds
     @AppScope
     fun bindNetworkDataSource(retrofitNetworkDataSource: NetworkDataSource.RetrofitNetworkDataSource): NetworkDataSource
+
+    @Binds
+    @AppScope
+    fun bindDetailsRepository(detailsRepositoryImpl: DetailsRepositoryImpl): DetailsRepository
 }

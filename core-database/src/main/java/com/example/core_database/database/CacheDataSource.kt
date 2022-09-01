@@ -3,6 +3,7 @@ package com.example.core_database.database
 import androidx.room.withTransaction
 import com.example.core.utils.SortType
 import com.example.core_database.model.CacheUser
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 interface CacheDataSource {
@@ -14,6 +15,8 @@ interface CacheDataSource {
     ): List<CacheUser>
 
     suspend fun updateData(cache: List<CacheUser>)
+
+    fun fetchSingleData(id: String): Flow<CacheUser>
 
     class RoomCacheDataSource @Inject constructor(
         private val database: CacheDatabase,
@@ -32,5 +35,7 @@ interface CacheDataSource {
                 dao.insertCache(cache)
             }
         }
+
+        override fun fetchSingleData(id: String) = dao.fetchSingleData(id)
     }
 }

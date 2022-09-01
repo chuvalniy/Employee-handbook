@@ -2,27 +2,30 @@ package com.example.feature_details.view_model
 
 import androidx.lifecycle.viewModelScope
 import com.example.core.presentation.BaseViewModel
-import com.example.core_data.repository.HomeRepository
+import com.example.core_data.repository.DetailsRepository
 import com.example.feature_details.model.DetailsEvent
 import com.example.feature_details.model.DetailsSideEffect
 import com.example.feature_details.model.DetailsState
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
-//TODO
 class DetailViewModel(
-    private val repository: HomeRepository,
+    private val repository: DetailsRepository,
 ) : BaseViewModel<DetailsEvent, DetailsState, DetailsSideEffect>(DetailsState()) {
 
-
     init {
-//        _uiState.value = _uiState.value.copy(
-//            data = savedStateHandle.get<DomainUser>(DetailFragment.KEY_USER)!! // TODO
-//        )
+        fetchData()
     }
 
-    private fun fetchData() {
+    private fun fetchData() = viewModelScope.launch {
+        repository.fetchData(id = "asd").onEach { data ->
+            _state.update { it.copy(data = data) }
+        }.launchIn(this)
     }
+
 
     override fun onEvent(event: DetailsEvent) {
         when (event) {

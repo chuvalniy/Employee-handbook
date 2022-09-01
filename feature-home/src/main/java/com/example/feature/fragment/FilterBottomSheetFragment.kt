@@ -9,9 +9,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.navGraphViewModels
 import com.example.core.utils.SortType
+import com.example.feature.R
 import com.example.feature.databinding.FragmentDialogBinding
 import com.example.feature.di.HomeComponentViewModel
+import com.example.feature.model.HomeEvent
 import com.example.feature.model.HomeState
 import com.example.feature.view_model.HomeViewModel
 import com.example.feature.view_model.HomeViewModelFactory
@@ -27,7 +30,9 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
     @Inject
     internal lateinit var factory: Lazy<HomeViewModelFactory>
 
-    private val viewModel: HomeViewModel by viewModels { factory.get() }
+    private val viewModel: HomeViewModel by navGraphViewModels(R.id.home_nav_graph) {
+        factory.get()
+    }
 
     override fun onAttach(context: Context) {
         ViewModelProvider(this).get<HomeComponentViewModel>()
@@ -53,19 +58,17 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun processUiEvent() {
-//        binding.rbSortByBirthday.setOnClickListener {
-//            viewModel.onEvent(HomeEvent.SortTypeSelected(SortType.BY_DATE))
-//        }
-//        binding.rbSortByAlphabet.setOnClickListener {
-//            viewModel.onEvent(HomeEvent.SortTypeSelected(SortType.BY_NAME))
-//        }
+        binding.rbSortByBirthday.setOnClickListener {
+            viewModel.onEvent(HomeEvent.SortTypeSelected(SortType.BY_DATE))
+        }
+        binding.rbSortByAlphabet.setOnClickListener {
+            viewModel.onEvent(HomeEvent.SortTypeSelected(SortType.BY_NAME))
+        }
     }
 
-    private fun observeUiState() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//            viewModel.state.collect { state ->
-//                processUiState(state)
-//            }
+    private fun observeUiState() = viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+        viewModel.state.collect { state ->
+            processUiState(state)
         }
     }
 

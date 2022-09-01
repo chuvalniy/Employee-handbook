@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.core.utils.SortType
 import com.example.core_database.model.CacheUser
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CacheDao {
@@ -43,4 +44,7 @@ interface CacheDao {
 
     @Query("DELETE FROM ${CacheDatabase.DATABASE_NAME}")
     suspend fun clearCache()
+
+    @Query("SELECT * FROM ${CacheDatabase.DATABASE_NAME} WHERE id = :id")
+    fun fetchSingleData(id: String): Flow<CacheUser>
 }
