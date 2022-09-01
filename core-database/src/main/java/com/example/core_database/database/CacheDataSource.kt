@@ -28,8 +28,8 @@ interface CacheDataSource {
 
         override suspend fun updateData(cache: List<CacheUser>) {
             database.withTransaction {
-                dao.insertCache(cache)
                 dao.clearCache()
+                dao.insertCache(cache)
             }
         }
     }

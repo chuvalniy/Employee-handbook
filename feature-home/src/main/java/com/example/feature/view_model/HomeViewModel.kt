@@ -50,7 +50,6 @@ internal class HomeViewModel(
         repository.fetchData(department, sortType, searchQuery).onEachResource(
             onError = { showSnackbar(it) },
             onSuccess = {
-                Log.d("TAGTAG", it.toString())
                 _state.value = _state.value.copy(data = it) },
             onLoading = { isLoading ->
                 if (isLoading) _state.value = _state.value.copy(loadingState = loadingState)
