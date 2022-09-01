@@ -13,10 +13,15 @@ import com.example.feature_details.model.DetailsEvent
 import com.example.feature_details.model.DetailsSideEffect
 import com.example.feature_details.model.DetailsState
 import com.example.feature_details.view_model.DetailViewModel
+import com.example.feature_details.view_model.DetailViewModelFactory
+import javax.inject.Inject
 
 class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
-    private val viewModel: DetailViewModel by viewModels()
+    @Inject
+    internal lateinit var factory: Lazy<DetailViewModelFactory>
+
+    private val viewModel: DetailViewModel by viewModels { factory.value }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,7 +33,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     }
 
     private fun observeUiEffect() = viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-        viewModel.uiEffect.collect { effect ->
+        viewModel.sideEffect.collect { effect ->
             when (effect) {
                 is DetailsSideEffect.NavigateBack -> findNavController().popBackStack()
             }
@@ -42,7 +47,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     }
 
     private fun observeUiState() = viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-        viewModel.uiState.collect { state ->
+        viewModel.state.collect { state ->
             processUiState(state)
         }
     }

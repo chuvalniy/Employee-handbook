@@ -1,7 +1,8 @@
 package com.example.feature.view_model
 
-import androidx.lifecycle.SavedStateHandle
+import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.Glide.init
 import com.example.core.core.ConnectivityObserver
 import com.example.core.core.UiText
 import com.example.core.presentation.BaseViewModel
@@ -17,12 +18,14 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel(
+// return SavedStateHandle
+
+internal class HomeViewModel(
     private val repository: HomeRepository,
     private val preferences: UserPreferences,
     private val connectivityObserver: ConnectivityObserver,
-    private val savedState: SavedStateHandle
 ) : BaseViewModel<HomeEvent, HomeState, HomeEffect>(HomeState()) {
 
     init {
@@ -30,9 +33,9 @@ class HomeViewModel(
         else {
             _state.value = _state.value.copy(
                 sortType = preferences.fetchSortType(),
-                departmentFilter = savedState.get<String>(KEY_FILTER_SAVED_STATE)
-                    ?: DEFAULT_VALUE,
-                searchQuery = savedState.get<String>(KEY_SEARCH_SAVED_STATE) ?: DEFAULT_VALUE
+//                departmentFilter = savedState.get<String>(KEY_FILTER_SAVED_STATE)
+//                    ?: DEFAULT_VALUE,
+//                searchQuery = savedState.get<String>(KEY_SEARCH_SAVED_STATE) ?: DEFAULT_VALUE
             )
             fetchData(loadingState = LoadingState.SHIMMER)
         }
@@ -46,7 +49,9 @@ class HomeViewModel(
     ) = viewModelScope.launch {
         repository.fetchData(department, sortType, searchQuery).onEachResource(
             onError = { showSnackbar(it) },
-            onSuccess = { _state.value = _state.value.copy(data = it) },
+            onSuccess = {
+                Log.d("TAGTAG", it.toString())
+                _state.value = _state.value.copy(data = it) },
             onLoading = { isLoading ->
                 if (isLoading) _state.value = _state.value.copy(loadingState = loadingState)
                 else _state.value = _state.value.copy(loadingState = LoadingState.NONE)
@@ -93,10 +98,11 @@ class HomeViewModel(
 
     private fun searchQueryChanged(event: HomeEvent.SearchQueryChanged) {
         if (event.query == _state.value.searchQuery) return
-        savedState[KEY_SEARCH_SAVED_STATE] = event.query
+//        savedState[KEY_SEARCH_SAVED_STATE] = event.query
 
         _state.value = _state.value.copy(
-            searchQuery = savedState.get<String>(KEY_SEARCH_SAVED_STATE) ?: DEFAULT_VALUE
+//            searchQuery = savedState.get<String>(KEY_SEARCH_SAVED_STATE) ?: DEFAULT_VALUE
+            searchQuery = event.query
         )
 
         searchJob?.cancel()
@@ -108,10 +114,11 @@ class HomeViewModel(
 
     private fun departmentSelected(event: HomeEvent.DepartmentSelected) {
         if (_state.value.departmentFilter == event.department) return
-        savedState[KEY_FILTER_SAVED_STATE] = event.department
+//        savedState[KEY_FILTER_SAVED_STATE] = event.department
 
         _state.value = _state.value.copy(
-            departmentFilter = savedState.get<String>(KEY_FILTER_SAVED_STATE) ?: DEFAULT_VALUE
+//            departmentFilter = savedState.get<String>(KEY_FILTER_SAVED_STATE) ?: DEFAULT_VALUE
+            departmentFilter = event.department
         )
         fetchData()
     }
@@ -129,4 +136,6 @@ class HomeViewModel(
         const val KEY_FILTER_SAVED_STATE = "filter"
         const val DEFAULT_VALUE = ""
     }
+
+
 }

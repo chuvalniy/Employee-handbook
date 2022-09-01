@@ -3,7 +3,7 @@ package com.example.core_network.network
 import com.example.core_network.model.NetworkResponse
 import retrofit2.http.GET
 
-interface RetrofitNetwork {
+interface NetworkRetrofit {
 
     @GET("users")
     suspend fun fetchCloudDataSource(): NetworkResponse

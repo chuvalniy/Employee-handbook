@@ -1,5 +1,7 @@
 package com.example.feature_details.model
 
-sealed class DetailsEvent {
-    object BackButtonPressed: DetailsEvent()
+import com.example.core.presentation.UiEvent
+
+sealed class DetailsEvent : UiEvent {
+    object BackButtonPressed : DetailsEvent()
 }

@@ -1,5 +1,6 @@
 package com.example.feature.fragment
 
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,15 +8,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.core.presentation.BaseFragment
-import com.example.core.ui.*
+import com.example.core.ui.getSnackBar
+import com.example.core.ui.onQueryTextChanged
+import com.example.core.ui.onTabSelected
+import com.example.core.ui.showSnackBar
 import com.example.core_navigation.NavCommand
 import com.example.core_navigation.NavCommands
 import com.example.core_navigation.navigate
 import com.example.feature.R
 import com.example.feature.databinding.FragmentHomeBinding
+import com.example.feature.di.HomeComponentViewModel
 import com.example.feature.domain.model.DepartmentList
 import com.example.feature.epoxy.HomeEpoxyController
 import com.example.feature.model.HomeEffect
@@ -25,17 +32,24 @@ import com.example.feature.model.LoadingState
 import com.example.feature.view_model.HomeViewModel
 import com.example.feature.view_model.HomeViewModelFactory
 import com.google.android.material.snackbar.Snackbar
+import dagger.Lazy
 import javax.inject.Inject
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
-    private val viewModel: HomeViewModel by viewModels()
-
     @Inject
-    lateinit var factory: HomeViewModelFactory.Factory
+    internal lateinit var factory: Lazy<HomeViewModelFactory>
+
+    private val viewModel: HomeViewModel by viewModels { factory.get() }
 
     private var epoxyController: HomeEpoxyController? = null
     private var snackbar: Snackbar? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        ViewModelProvider(this).get<HomeComponentViewModel>()
+            .homeComponent.inject(this)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -118,7 +132,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         if (state.loadingState == LoadingState.SNACKBAR) {
             snackbar =
-                requireContext().getSnackBar(binding.root, getString(com.example.core.R.string.loading_message))
+                requireContext().getSnackBar(
+                    binding.root,
+                    getString(com.example.core.R.string.loading_message)
+                )
         } else snackbar?.dismiss()
     }
 

@@ -12,4 +12,5 @@ interface HomeRepository {
         sortType: SortType,
         searchQuery: String,
     ): Flow<Resource<List<DomainUser>>>
+
 }
