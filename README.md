@@ -7,7 +7,7 @@
 Employee handbook app consists of only two screens but at the same it supports network requests and their caching, various actions with data (search, sorting, filtering) and screen state management (different loading and error states).
 
 ## Getting started
-If you want to read about app architecture, you can check [this](https://github.com/chuvalik/Employee-handbook/blob/main/documentation/Architecture.md) link.
+If you want to read about app architecture, you can check [this](https://github.com/chuvalik/Employee-handbook/blob/main/documentation/Architecture.md) link or if you want to check package structure, I suggest you to navigate [here](https://github.com/chuvalik/Employee-handbook/blob/main/documentation/PackageStructure.md).
 
 
 ## Useful links
