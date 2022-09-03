@@ -17,9 +17,9 @@ import com.example.core.ui.getSnackBar
 import com.example.core.ui.onQueryTextChanged
 import com.example.core.ui.onTabSelected
 import com.example.core.ui.showSnackBar
-import com.example.core_navigation.NavCommand
-import com.example.core_navigation.NavCommands
-import com.example.core_navigation.navigate
+import com.example.core_navigation.navigation.NavCommand
+import com.example.core_navigation.navigation.NavCommands
+import com.example.core_navigation.navigation.navigate
 import com.example.feature.R
 import com.example.feature.databinding.FragmentHomeBinding
 import com.example.feature.di.HomeComponentViewModel

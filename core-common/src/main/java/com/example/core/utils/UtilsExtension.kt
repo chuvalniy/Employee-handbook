@@ -47,3 +47,4 @@ inline fun <T> Flow<Resource<T>>.onEachResource(
         is Resource.Success -> result.data?.let(onSuccess)
     }
 }
+

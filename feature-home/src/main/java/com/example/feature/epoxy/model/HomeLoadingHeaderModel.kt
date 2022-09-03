@@ -9,8 +9,25 @@ data class HomeLoadingHeaderModel(
 ) : ViewBindingKotlinModel<ModelLoadingHeaderBinding>(R.layout.model_loading_header) {
 
     override fun ModelLoadingHeaderBinding.bind() {
-//        tvHeader.text = header.toUiDepartment() // TODO
-        tvHeader.text = "All"
+        tvHeader.text = header.toUiDepartment()
     }
 
+}
+
+private fun String.toUiDepartment(): String {
+    return when (this) {
+        "android" -> "Android"
+        "ios" -> "iOS"
+        "design" -> "Design"
+        "management" -> "Management"
+        "qa" -> "QA"
+        "hr" -> "HR"
+        "pr" -> "PR"
+        "backend" -> "Backend"
+        "frontend" -> "frontend"
+        "back_office" -> "Back ofice"
+        "support" -> "Support"
+        "analytics" -> "Analytics"
+        else -> "All"
+    }
 }

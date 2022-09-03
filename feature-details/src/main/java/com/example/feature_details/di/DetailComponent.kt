@@ -2,11 +2,10 @@ package com.example.feature_details.di
 
 import androidx.annotation.RestrictTo
 import com.bumptech.glide.RequestManager
-import com.example.core_data.repository.DetailsRepository
+import com.example.core_data.repository.DetailRepository
 import com.example.feature_details.fragment.DetailFragment
 import dagger.Component
 import javax.inject.Scope
-import kotlin.properties.Delegates
 import kotlin.properties.Delegates.notNull
 
 @Scope
@@ -29,7 +28,7 @@ internal interface DetailsComponent {
 
 interface DetailsDeps {
     val glide: RequestManager
-    val detailsRepository: DetailsRepository
+    val detailRepository: DetailRepository
 }
 
 interface DetailsDepsProvider {

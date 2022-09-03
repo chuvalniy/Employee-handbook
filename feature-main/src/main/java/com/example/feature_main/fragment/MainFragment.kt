@@ -1,4 +1,4 @@
-package com.example.feature_main
+package com.example.feature_main.fragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

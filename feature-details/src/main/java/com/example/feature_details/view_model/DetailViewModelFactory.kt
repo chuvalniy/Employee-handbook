@@ -4,17 +4,14 @@ import android.os.Bundle
 import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.savedstate.SavedStateRegistryOwner
-import com.example.core_data.repository.DetailsRepository
-import com.example.core_data.repository.HomeRepository
+import com.example.core_data.repository.DetailRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import javax.inject.Inject
 
 class DetailViewModelFactory @AssistedInject constructor(
-    private val repository: DetailsRepository,
+    private val repository: DetailRepository,
     @Assisted owner: SavedStateRegistryOwner,
     @Assisted defaultArgs: Bundle? = null
 ) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {

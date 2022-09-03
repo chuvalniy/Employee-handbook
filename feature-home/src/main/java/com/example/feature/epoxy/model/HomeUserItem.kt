@@ -3,7 +3,7 @@ package com.example.feature.epoxy.model
 import androidx.core.view.isVisible
 import com.example.core.helpers.ViewBindingKotlinModel
 import com.example.core.utils.SortType
-import com.example.core_model.DomainUser
+import com.example.core_model.model.DomainUser
 import com.example.feature.R
 import com.example.feature.databinding.ModelUserItemBinding
 

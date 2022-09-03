@@ -1,4 +1,4 @@
-package com.example.core_model
+package com.example.core_model.model
 
 data class DomainUser(
     val avatarUrl: String,

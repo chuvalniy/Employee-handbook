@@ -1,7 +1,6 @@
 package com.example.feature.domain.model
 
 
-// TODO
 object DepartmentList {
     val departmentListUi = listOf(
             "All",
