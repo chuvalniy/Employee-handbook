@@ -1,4 +1,4 @@
-package com.example.feature_main
+package com.example.feature_main.fragment
 
 import android.net.Uri
 import android.os.Bundle
@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.core.presentation.BaseFragment
-import com.example.core_navigation.NavCommand
-import com.example.core_navigation.NavCommands
-import com.example.core_navigation.navigate
+import com.example.core_navigation.navigation.NavCommand
+import com.example.core_navigation.navigation.NavCommands
+import com.example.core_navigation.navigation.navigate
 import com.example.feature.databinding.FragmentErrorBinding
 
 class ErrorFragment : BaseFragment<FragmentErrorBinding>() {

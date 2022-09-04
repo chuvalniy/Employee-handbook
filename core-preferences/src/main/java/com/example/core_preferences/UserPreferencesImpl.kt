@@ -7,8 +7,6 @@ import javax.inject.Inject
 private const val SHARED_PREFS_NAME = "user_settings"
 private const val KEY_SORT_TYPE = "sort_type"
 
-
-// TODO
 class UserUserPreferencesImpl @Inject constructor(
     context: Context
 ) : UserPreferences {

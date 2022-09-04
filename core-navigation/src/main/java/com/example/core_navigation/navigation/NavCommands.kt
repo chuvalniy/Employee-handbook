@@ -1,4 +1,4 @@
-package com.example.core_navigation
+package com.example.core_navigation.navigation
 
 import android.net.Uri
 

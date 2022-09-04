@@ -8,8 +8,9 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
-import com.example.core_navigation.NavCommand
-import com.example.core_navigation.NavigationProvider
+import com.example.core_navigation.navigation.NavCommand
+import com.example.core_navigation.navigation.NavCommands
+import com.example.core_navigation.navigation.NavigationProvider
 
 class MainActivity : AppCompatActivity(), NavigationProvider {
 
@@ -29,12 +30,12 @@ class MainActivity : AppCompatActivity(), NavigationProvider {
 
     override fun launch(navCommand: NavCommand) {
         when (val target = navCommand.target) {
-            is com.example.core_navigation.NavCommands.DeepLink -> openDeepLink(
+            is NavCommands.DeepLink -> openDeepLink(
                 url = target.url,
                 isModal = target.isModal,
                 isSingleTop = target.isSingleTop
             )
-            is com.example.core_navigation.NavCommands.Browser -> Unit
+            is NavCommands.Browser -> Unit
         }
     }
 

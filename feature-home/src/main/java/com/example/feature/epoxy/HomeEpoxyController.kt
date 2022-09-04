@@ -1,7 +1,7 @@
 package com.example.feature.epoxy
 
 import com.airbnb.epoxy.TypedEpoxyController
-import com.example.core_model.DomainUser
+import com.example.core_model.model.DomainUser
 import com.example.feature.epoxy.model.HomeLoadingHeaderModel
 import com.example.feature.epoxy.model.HomeUserItem
 import com.example.feature.epoxy.model.ShimmerUserItemModel

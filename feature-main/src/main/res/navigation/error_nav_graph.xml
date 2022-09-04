@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/errorFragment"
-        android:name="com.example.feature_main.ErrorFragment"
+        android:name="com.example.feature_main.fragment.ErrorFragment"
         android:label="ErrorFragment" />
     <deepLink
         android:id="@+id/deepLinkError"

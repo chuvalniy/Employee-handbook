@@ -3,7 +3,7 @@ package com.example.feature_details.view_model
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.example.core.presentation.BaseViewModel
-import com.example.core_data.repository.DetailsRepository
+import com.example.core_data.repository.DetailRepository
 import com.example.feature_details.model.DetailEvent
 import com.example.feature_details.model.DetailSideEffect
 import com.example.feature_details.model.DetailState
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 
 class DetailViewModel @Inject constructor(
-    private val repository: DetailsRepository,
+    private val repository: DetailRepository,
     private val savedState: SavedStateHandle
 ) : BaseViewModel<DetailEvent, DetailState, DetailSideEffect>(DetailState()) {
 

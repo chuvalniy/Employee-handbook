@@ -6,7 +6,7 @@ import com.example.core.utils.fromTimestampToBirthday
 import com.example.core.utils.fromTimestampToBirthdayFull
 import com.example.core.utils.toTimestamp
 import com.example.core_database.model.CacheUser
-import com.example.core_model.DomainUser
+import com.example.core_model.model.DomainUser
 import javax.inject.Inject
 
 class CacheMapper @Inject constructor(): Mapper<CacheUser, DomainUser> {
@@ -17,31 +17,12 @@ class CacheMapper @Inject constructor(): Mapper<CacheUser, DomainUser> {
             birthdayDay = data.birthday.toTimestamp().fromTimestampToBirthday(),
             age = data.birthday.toTimestamp().fromTimestampToAge(),
             birthdayFull = data.birthday.toTimestamp().fromTimestampToBirthdayFull(),
-            department = data.department.toUiDepartment(),
+            department = data.department,
             name = "${data.firstName} ${data.lastName}",
             id = data.id,
             position = data.position,
             userTag = data.userTag.lowercase(),
             phone = data.phone
         )
-    }
-}
-
-// TODO?
-private fun String.toUiDepartment(): String {
-    return when (this) {
-        "android" -> "Android"
-        "ios" -> "iOS"
-        "design" -> "Design"
-        "management" -> "Management"
-        "qa" -> "QA"
-        "hr" -> "HR"
-        "pr" -> "PR"
-        "backend" -> "Backend"
-        "frontend" -> "frontend"
-        "back_office" -> "Back ofice"
-        "support" -> "Support"
-        "analytics" -> "Analytics"
-        else -> "All"
     }
 }

@@ -2,7 +2,6 @@ package com.example.feature.model
 
 import com.example.core.presentation.UiEvent
 import com.example.core.utils.SortType
-import com.example.core_model.DomainUser
 
 sealed class HomeEvent : UiEvent {
     data class SortTypeSelected(val sortType: SortType) : HomeEvent()
